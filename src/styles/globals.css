@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.logo svg {
+  height: 200px;
+  width: 200px;
+}
+
+.logo rect {
+  fill: aqua;
+  height: 190px;
+  stroke: darkmagenta;
+  width: 190px;
+}
+.bg-liner {
+  background: rgb(249, 87, 251);
+  background: linear-gradient(
+    176deg,
+    rgba(249, 87, 251, 1) 0%,
+    rgba(11, 8, 41, 1) 100%
+  );
+}
