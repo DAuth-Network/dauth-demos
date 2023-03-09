@@ -13,16 +13,11 @@ body {
   overflow-x: hidden;
 }
 
-.logo svg {
-  height: 200px;
-  width: 200px;
+.logo-gray path {
+  fill: #999AA0;
 }
-
-.logo rect {
-  fill: aqua;
-  height: 190px;
-  stroke: darkmagenta;
-  width: 190px;
+.logo-gray svg {
+  height: 12px;
 }
 .bg-liner {
   background: rgb(249, 87, 251);

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ReactSVG } from 'react-svg'
 
-const Logo = () => {
+interface ILogo {
+    className?: string
+}
+
+const Logo:FC<ILogo> = ({className}) => {
     return (
-        <ReactSVG src="/logo.svg" className='' />
+        <ReactSVG src="/logo.svg" className={`${className}`} width={1}/>
     )
 }
 

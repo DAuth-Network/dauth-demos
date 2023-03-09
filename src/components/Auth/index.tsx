@@ -1,20 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import PrimaryButton from '../Button/PrimaryButton'
+import CodeIn from '../CodeIn'
+import EmailInput from '../Input/EmailInput'
 import Logo from '../Logo'
+import SignIn from '../Signin'
 
 const AuthContainer = () => {
+    const [step, setStep] = useState(1)
+    const onEmailSubmit = () => {
+        setStep(1)
+    }
+
+
     return (
-        <div className='bg-dark rounded-2xl w-1/2 h-4/6 flex justify-center  p-10'>
-            <div className='w-20 h-20 rounded-3xl flex justify-center items-center' style={{
-                backgroundColor: `rgb(249,87,251)`,
-                background: `linear-gradient(129deg, rgba(249,87,251,1) 0%, rgba(11,8,41,1) 80%)`
-            }}>
-                <Logo />
+        <div className='bg-dark rounded-2xl xl:w-2/5 w-4/5 h-3/5 min-h-fit  flex flex-col justify-evenly items-center  p-12'>
+            {
+                step === 0 && <SignIn onSubmit={onEmailSubmit} />
+            }
+            {
+                step === 1 && <CodeIn />
+
+            }
+            <div className='text-[#999AA0] text-xs text-center'>
+                <div >
+                    Powered by DAuth to ensure your information remains anonymous and secure.
+                </div>
+                <div className='flex-row flex justify-center items-center  mt-4'>
+                    <Logo className='logo-gray' />
+                    <div className='text-[#999AA0] text-xs'>
+                        DAuth Network
+                    </div>
+                </div>
             </div>
-            <div className='text-3xl font-semibold'>
-                Sign in / Sign up
-            </div>
-        </div>
+        </div >
     )
 }
 
-export default AuthContainer
+export default AuthContainer    
