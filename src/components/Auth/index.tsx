@@ -18,7 +18,7 @@ const AuthContainer = () => {
                 step === 0 && <SignIn onSubmit={onEmailSubmit} />
             }
             {
-                step === 1 && <CodeIn />
+                step === 1 && <CodeIn email='' />
 
             }
             <div className='text-[#999AA0] text-xs text-center'>
