@@ -6,7 +6,7 @@ import Logo from '../Logo'
 import SignIn from '../Signin'
 
 const AuthContainer = () => {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(0)
     const onEmailSubmit = () => {
         setStep(1)
     }
