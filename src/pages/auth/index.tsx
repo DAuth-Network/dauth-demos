@@ -1,4 +1,5 @@
 import AuthContainer from '@/components/Auth'
+import { enqueueSnackbar } from 'notistack'
 import React from 'react'
 
 const Auth = () => {
@@ -14,10 +15,8 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-1/2 h-full bg-liner'>
-                <div>
-                    <AuthContainer />
-                </div>
+            <div className='w-1/2 h-full bg-liner flex justify-center items-center'>
+                <AuthContainer />
             </div>
 
         </div>

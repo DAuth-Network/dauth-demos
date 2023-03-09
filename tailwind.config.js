@@ -10,7 +10,8 @@ module.exports = {
         sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        'dark': "#141414"
+        'dark': "#141414",
+        'main': '#833CF8'
       }
     },
   },
