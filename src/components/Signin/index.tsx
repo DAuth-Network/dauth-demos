@@ -3,9 +3,9 @@ import EmailInput from '../Input/EmailInput'
 import Logo from '../Logo'
 
 interface ISignIn {
-    onSubmit: () => void
+    onSubmit: (email: string) => void
 }
-const SignIn:FC<ISignIn> = ({onSubmit}) => {
+const SignIn: FC<ISignIn> = ({ onSubmit }) => {
     return (
         <>
             <div className='flex flex-col justify-center items-center'>
@@ -20,7 +20,7 @@ const SignIn:FC<ISignIn> = ({onSubmit}) => {
                 </div>
             </div>
             <div>
-                <EmailInput />
+                <EmailInput onSubmit={onSubmit} />
             </div>
 
         </>
