@@ -1,5 +1,5 @@
-import { dauth_registerEmail } from '@/services/http';
-import { hashAndEncrypt } from '@/utils/crypto';
+import { dauth_confirmRegisteredEmail, dauth_registerEmail } from '@/services/http';
+import { encrypt, hashAndEncrypt } from '@/utils/crypto';
 import exchangeKey from '@/utils/exchangeKey';
 import { useCountDown, useRequest } from 'ahooks';
 import React, { FC, useEffect, useRef, useState } from 'react'
@@ -54,8 +54,8 @@ const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
         try {
             setIsLoading(true)
             const { session_id, shareKey } = await exchangeKey.exchange()
-            const cipher_email = await hashAndEncrypt(code, shareKey)
-            await dauth_registerEmail({ cipher_email, session_id })
+            const cipher_code = await encrypt(code, shareKey)
+            await dauth_confirmRegisteredEmail({ cipher_code, session_id })
             setIsLoading(false)
             setStatus(Estep.success)
         } catch (error) {

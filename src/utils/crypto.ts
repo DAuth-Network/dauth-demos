@@ -1,28 +1,34 @@
 import forge from 'node-forge'
-async function encrypt(rawText: string, key: string) {
+export async function encrypt(rawText: string, key: string) {
+    console.log("encrypt content", rawText, " with ", key);
     if (key === "") {
-        alert(
-            "Secure Channel to Keysafe Node is not setup correctly. Please refresh page and try again."
-        )
-        throw Error("Error")
+        alert("Secure Channel to Keysafe Node is not setup correctly. Please refresh page and try again.");
+        return;
     }
-    console.log("prepare key")
-    var aesKey = forge.util.hexToBytes(key)
-    var cipher = forge.cipher.createCipher("AES-GCM", aesKey)
-    const iv = new Uint8Array(12) as any
-    console.log("prepare iv")
-    cipher.start({
-        iv,
-        tagLength: 0,
-    })
-    console.log(cipher)
-    cipher.update(forge.util.createBuffer(rawText, "raw"))
-    console.log("finish.")
-    cipher.finish()
-    const a = cipher.output.toHex()
-    console.log("encrypted ", a)
-    cipher.output.getBytes()
-    return a
+    try {
+        console.log("prepare key");
+        var aesKey = forge.util.hexToBytes(key);
+        var cipher = forge.cipher.createCipher('AES-GCM', aesKey);
+        const iv = new Uint8Array(12) as any;
+        console.log("prepare iv");
+        cipher.start({
+            iv: iv,
+            tagLength: 128
+        });
+        console.log(cipher);
+        cipher.update(forge.util.createBuffer(rawText, 'raw'));
+        console.log("finish.");
+        cipher.finish();
+        const a = cipher.output.toHex();
+        var tag = cipher.mode.tag;
+        console.log("encrypted ", a);
+        cipher.output.getBytes();
+        return tag.toHex() + a;
+    } catch (err) {
+        console.log("failing");
+        console.log("error happening ", err);
+        return "";
+    }
 }
 export function hashStr(cond: string) {
     var md = forge.md.sha256.create()
@@ -31,6 +37,6 @@ export function hashStr(cond: string) {
 }
 export async function hashAndEncrypt(rawText: string, key: string) {
     const hash = hashStr(rawText)
-    const encrypted = await encrypt(hash, key)
+    const encrypted = await encrypt(rawText, key)
     return encrypted
 }

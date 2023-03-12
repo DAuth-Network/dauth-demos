@@ -39,6 +39,11 @@ export const dauth_registerEmail = async (payload: RequestPayload): Promise<any>
 };
 
 // Confirm registered email
+interface registerEmailEequestPayload {
+
+    cipher_code: string,
+    session_id: string
+}
 export const dauth_confirmRegisteredEmail = async (payload: RequestPayload): Promise<any> => {
     try {
         const response: AxiosResponse = await instance.post(`/register_email_confirm`, payload);
