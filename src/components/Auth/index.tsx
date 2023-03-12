@@ -1,5 +1,5 @@
 import { dauth_registerEmail } from '@/services/http'
-import { hashAndEncrypt } from '@/utils/crypto'
+import { encrypt, hashAndEncrypt } from '@/utils/crypto'
 import exchangeKey from '@/utils/exchangeKey'
 import { useRequest } from 'ahooks'
 import React, { useContext, useState } from 'react'
@@ -15,7 +15,7 @@ const AuthContainer = () => {
     const onEmailSubmit = async (email: string) => {
         try {
             const { session_id, shareKey } = await exchangeKey.exchange()
-            const cipher_email = await hashAndEncrypt(email, shareKey)
+            const cipher_email = await encrypt(email, shareKey)
             await dauth_registerEmail({ cipher_email, session_id })
             setEmail(email)
             setStep(1)
