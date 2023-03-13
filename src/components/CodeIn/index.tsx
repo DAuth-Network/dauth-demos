@@ -55,7 +55,8 @@ const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
             setIsLoading(true)
             const { session_id, shareKey } = await exchangeKey.exchange()
             const cipher_code = await encrypt(code, shareKey)
-            await dauth_confirmRegisteredEmail({ cipher_code, session_id })
+            const res = await dauth_confirmRegisteredEmail({ cipher_code, session_id })
+            localStorage.setItem('token', res.token)
             setIsLoading(false)
             setStatus(Estep.success)
         } catch (error) {
