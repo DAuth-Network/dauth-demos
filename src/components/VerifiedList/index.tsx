@@ -9,9 +9,17 @@ const list = [
     }
 ]
 const itemList = ['email', 'twitter', 'github', 'discord', 'google']
+const verifiedItem = () => {
+    return <div>
+        d
+    </div>
+}
 const VerifiedList = () => {
     return (
         <div>
+            <div className='text-white text-lg'>
+                Verify Accounts
+            </div>
             {
                 itemList.map((item, index) => {
                     return <div key={item} className={'w-3/5 border-[1.5px solid #383838;]'}>

@@ -22,23 +22,21 @@ export default function Home() {
   return (
     <div className='h-screen'>
       <div className='w-1/2 h-full p-20 bg-dark'>
-        <div className='flex flex-row justify-evenly'>
-          <div className='w-24 h-24 bg-slate-500 rounded-full'>
+        <div className='flex flex-row justify-around my-10'>
+          <div className='w-28 h-28 bg-[#2b2b2b] rounded-full mr-10'>
 
           </div>
-          <div className='w-3/5 flex flex-col justify-evenly'>
-            <div>
-              test
+          <div className='w-4/5 flex flex-col justify-evenly'>
+            <div className='bg-[#2b2b2b] rounded-2xl w-20 h-4'>
             </div>
-            <div>
-              test2
+            <div className='bg-[#2b2b2b] rounded-2xl w-32 h-4'>
             </div>
             <div>
               <MediaList />
             </div>
           </div>
         </div>
-        <div className='flex'>
+        <div className='flex font-semibold'>
           <VerifiedList />
 
         </div>
