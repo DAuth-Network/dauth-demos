@@ -56,7 +56,11 @@ export const dauth_confirmRegisteredEmail = async (payload: RequestPayload): Pro
 // Get user info
 export const dauth_getUserInfo = async (): Promise<any> => {
     try {
-        const response: AxiosResponse = await instance.post(`/info`);
+        const response: AxiosResponse = await instance.get(`/info`, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        });
         return response.data;
     } catch (error: any) {
         throw new Error(error.message);
