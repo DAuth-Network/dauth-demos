@@ -2,6 +2,7 @@ import { IoMdMail } from 'react-icons/io'
 import { FaTelegramPlane } from 'react-icons/fa'
 import { DiGithubAlt } from 'react-icons/di'
 import { BsDiscord, BsGoogle, BsTwitter } from 'react-icons/bs'
+import { IconType } from 'react-icons'
 
 
 const twitterIcon = BsTwitter
@@ -10,7 +11,11 @@ const emailIcon = IoMdMail
 const githubIcon = DiGithubAlt
 const googleIcon = BsGoogle
 const discordIcon = BsDiscord
-export const medias = [
+export interface IMediaItem {
+    name: string,
+    icon: IconType
+}
+export const mediasIcons = [
     {
         name: 'email',
         icon: emailIcon,

@@ -20,7 +20,7 @@ export default function Home() {
   }, [router])
 
   return (
-    <div className='h-screen'>
+    <div className='flex flex-row'>
       <div className='w-1/2 h-full p-20 bg-dark'>
         <div className='flex flex-row justify-around my-10'>
           <div className='w-28 h-28 bg-[#2b2b2b] rounded-full mr-10'>
@@ -36,13 +36,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='flex font-semibold'>
-          <VerifiedList />
+        <VerifiedList />
 
-        </div>
       </div>
-      <div className=''>
-
+      <div className='w-1/2 h-auto bg-liner'>
+          
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IconType } from 'react-icons'
-import { medias } from '../Icons'
+import { mediasIcons } from '../Icons'
 
 
 interface IMediaItem {
@@ -20,7 +20,7 @@ const MediaList = () => {
   return (
     <div className='flex flex-row'>
       {
-        medias.map((item, index) => {
+        mediasIcons.map((item, index) => {
           return MediaItem({ name: item.name, icon: item.icon, active: index === 0 })
         })
       }

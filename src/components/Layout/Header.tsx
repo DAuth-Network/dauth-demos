@@ -3,10 +3,16 @@ import Image from 'next/image'
 import { ReactSVG } from 'react-svg';
 import css from 'styled-jsx/css';
 import Logo from '../Logo';
+import PrimaryButton from '../Button/PrimaryButton';
+import { useRouter } from 'next/router';
 
 
 const Header = () => {
-
+    const router = useRouter()
+    const logout = () => {
+        localStorage.setItem('token', '')
+        router.push('/auth')
+    }
     return (
         <div className='w-screen flex fixed h-16 px-20'>
             <div className='flex-row flex items-center  w-1/2'>
@@ -21,8 +27,9 @@ const Header = () => {
                     demo
                 </div>
             </div>
-            <div className='flex-1'>
-
+            <div className='flex-1 flex justify-between items-center'>
+                <div></div>
+                <PrimaryButton className='w-[100px] h-[32px]' onClick={logout}>Log out</PrimaryButton>
             </div>
 
         </div>
