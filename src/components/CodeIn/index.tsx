@@ -7,6 +7,7 @@ import AuthCode, { AuthCodeRef } from 'react-auth-code-input';
 import { FiMail } from 'react-icons/fi'
 import { motion } from "framer-motion"
 import { ImSpinner } from "react-icons/im"
+import { useRouter } from 'next/router';
 
 interface ICodeIn {
     email: string,
@@ -25,7 +26,7 @@ const inputClasses: any = {
 }
 const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
     const AuthInputRef = useRef<AuthCodeRef>(null);
-
+    const router = useRouter()
     const [code, setResult] = useState('');
     const [targetDate, setTargetDate] = useState(Date.now() + coldDown)
     const [resendShow, setResendShow] = useState(false)
@@ -59,6 +60,8 @@ const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
             localStorage.setItem('token', res.token)
             setIsLoading(false)
             setStatus(Estep.success)
+            router.push('/')
+            
         } catch (error) {
             setIsLoading(false)
             setStatus(Estep.failed)

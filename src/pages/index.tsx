@@ -1,23 +1,12 @@
+import SignatureData from '@/components/SignatureData';
 import VerifiedList from '@/components/VerifiedList';
 import { dauth_getUserInfo } from '@/services/http';
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import MediaList from "../components/MediaList";
 export default function Home() {
-  const router = useRouter()
-
-  useEffect(() => {
-    // router.push('/auth')
-    const token = localStorage.getItem('token')
-    console.log("token", token)
-    dauth_getUserInfo().then(res => {
-      console.log(res)
-    }).catch(e => {
-      console.log(e)
-    })
 
 
-  }, [router])
 
   return (
     <div className='flex flex-row'>
@@ -39,8 +28,8 @@ export default function Home() {
         <VerifiedList />
 
       </div>
-      <div className='w-1/2 h-auto bg-liner'>
-          
+      <div className='w-1/2 h-auto bg-liner  p-16 '>
+        <SignatureData />
       </div>
     </div>
   )
