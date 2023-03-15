@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { ImUser } from 'react-icons/im'
 import { RiHistoryFill } from 'react-icons/ri'
 import ReactJson from 'react-json-view'
 import JsonItem from '../JsonItem'
 
-const SignatureData = () => {
+interface ISignatureData {
+    data: any
+}
+const SignatureData:FC<ISignatureData> = ({data}) => {
     const [showAll, setShowAll] = useState(false)
     const onClick = () => {
         setShowAll(!showAll)
     }
-    const datas = [
-        {
-            "Nounce": "0", "environmentId": "fba5127c-21c0-430e-bb03-7dc8f6b11397", "sessionId": "44263fe7-2994-45b1-9676-39f7b8d5fa94", "userId": "ddf8846b-890d-4dfb-badf-2250444676b0", "verifiedCredentials": [{ "email": "8743b52063cd84097a65d1633f5c74f5", "id": "69d9faad-3f66-4d44-93ee-293682bf1046", "publicIdentifier": "8743b52063cd84097a65d1633f5c74f5", "format": "email" }], "email": "8743b52063cd84097a65d1633f5c74f5"
-        }
-    ]
     return (
         <div className=''>
             <div className='flex flex-row-reverse py-20'>
@@ -37,9 +35,9 @@ const SignatureData = () => {
                 </div>
 
             </div>
-            <div className='p-20 h-full bg-[#1f1f1f]'>
+            <div className='p-20 h-full bg-[#1f1f1f] rounded-lg'>
                 {
-                    datas.map((item) => <JsonItem key={item.Nounce} item={item} />)
+                    <JsonItem item={data} />
                 }
             </div>
 

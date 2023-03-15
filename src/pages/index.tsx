@@ -1,10 +1,21 @@
 import SignatureData from '@/components/SignatureData';
 import VerifiedList from '@/components/VerifiedList';
 import { dauth_getUserInfo } from '@/services/http';
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useRequest } from 'ahooks';
+import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
 export default function Home() {
+  const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
+  const profileData = useMemo(() => {
+    if (profile) {
+      return profile.data.filter((item) => item.auth_hash)
+    } else {
+      return []
+    }
+  }, [profile])
+  const verifiedList = useMemo(() => {
+    return profileData.map((item) => item.auth_type.toLowerCase())
+  }, [profileData])
 
 
 
@@ -21,15 +32,15 @@ export default function Home() {
             <div className='bg-[#2b2b2b] rounded-2xl w-32 h-4'>
             </div>
             <div>
-              <MediaList />
+              <MediaList verifiedList={verifiedList} />
             </div>
           </div>
         </div>
-        <VerifiedList />
+        <VerifiedList verifiedList={verifiedList} profile={profile ? profile.data : []} />
 
       </div>
       <div className='w-1/2 h-auto bg-liner  p-16 '>
-        <SignatureData />
+        <SignatureData data={profileData} />
       </div>
     </div>
   )

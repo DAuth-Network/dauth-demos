@@ -16,12 +16,15 @@ const MediaItem: FC<IMediaItem> = ({ name, icon, active }) => {
     }
   </div>
 }
-const MediaList = () => {
+interface IMediaList {
+  verifiedList: string[]
+}
+const MediaList:FC<IMediaList> = ({verifiedList}) => {
   return (
     <div className='flex flex-row'>
       {
         mediasIcons.map((item, index) => {
-          return MediaItem({ name: item.name, icon: item.icon, active: index === 0 })
+          return <MediaItem name={item.name} icon={item.icon} active={verifiedList.includes(item.name)} key={item.name} />
         })
       }
     </div>

@@ -20,13 +20,6 @@ const Header = () => {
         if (!token && router.pathname !== '/auth') {
             router.push('/auth')
         }
-        dauth_getUserInfo().then(res => {
-            console.log(res)
-        }).catch(e => {
-            console.log(e)
-        })
-
-
     }, [router])
     return (
         <div className='w-screen flex absolute h-16 px-20'>
@@ -44,7 +37,7 @@ const Header = () => {
             </div>
             <div className='flex-1 flex justify-between items-center'>
                 <div></div>
-                <PrimaryButton className='w-[100px] h-[32px]' onClick={logout}>Log out</PrimaryButton>
+                <PrimaryButton className='w-[120px] h-[32px] bg-[#1f1f1f]' onClick={logout}>Log out</PrimaryButton>
             </div>
 
         </div>
