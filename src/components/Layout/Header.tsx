@@ -5,7 +5,6 @@ import css from 'styled-jsx/css';
 import Logo from '../Logo';
 import PrimaryButton from '../Button/PrimaryButton';
 import { useRouter } from 'next/router';
-import { dauth_getUserInfo } from '@/services/http';
 
 
 const Header = () => {
@@ -37,7 +36,9 @@ const Header = () => {
             </div>
             <div className='flex-1 flex justify-between items-center'>
                 <div></div>
-                <PrimaryButton className='w-[120px] h-[32px] bg-[#1f1f1f]' onClick={logout}>Log out</PrimaryButton>
+                {
+                    router.pathname !== '/auth' && <PrimaryButton passedClassName='w-[120px] h-[32px] bg-[#1f1f1f]' style={{background: '#1f1f1f'}} onClick={logout}>Log out</PrimaryButton>
+                }
             </div>
 
         </div>

@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import EmailInput from '../Input/EmailInput'
+import EmailInput, { EStep } from '../Input/EmailInput'
 import Logo from '../Logo'
 
 interface ISignIn {
     onSubmit: (email: string) => void
+    step: EStep
 }
-const SignIn: FC<ISignIn> = ({ onSubmit }) => {
+const SignIn: FC<ISignIn> = ({ onSubmit, step }) => {
     return (
         <>
             <div className='flex flex-col justify-center items-center'>
@@ -20,7 +21,7 @@ const SignIn: FC<ISignIn> = ({ onSubmit }) => {
                 </div>
             </div>
             <div>
-                <EmailInput onSubmit={onSubmit} />
+                <EmailInput onSubmit={onSubmit} step={step} />
             </div>
 
         </>
