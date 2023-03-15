@@ -9,6 +9,10 @@ interface RequestPayload {
     [key: string]: any;
 }
 
+interface ResponsePayload<T> {
+    data: T;
+    status: string;
+}
 // Exchange key
 interface exchangeKeyEequestPayload {
     key: string
@@ -54,13 +58,21 @@ export const dauth_confirmRegisteredEmail = async (payload: RequestPayload): Pro
 };
 
 // Get user info
-export const dauth_getUserInfo = async (): Promise<any> => {
+export interface IProfileItem {
+    auth_hash: string
+    auth_id: string
+    auth_signature: string
+    auth_type: string
+}
+
+export const dauth_getUserInfo = async (): Promise<ResponsePayload<IProfileItem[]>> => {
     try {
         const response: AxiosResponse = await instance.get(`/info`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
-        });
+        })
+        console.log(response)
         return response.data;
     } catch (error: any) {
         throw new Error(error.message);
