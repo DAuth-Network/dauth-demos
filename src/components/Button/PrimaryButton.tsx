@@ -5,12 +5,11 @@ interface IPrimaryButton {
     children: React.ReactNode,
     onClick: () => void
     style?: React.CSSProperties
-    className?: string
+    passedClassName?: string
 }
-const PrimaryButton: FC<IPrimaryButton> = ({ children, onClick, style, className }) => {
-    console.log(className)
+const PrimaryButton: FC<IPrimaryButton> = ({ children, onClick, style, passedClassName }) => {
     return (
-        <button className={`w-full rounded-full bg-main h-14 ${className}`} style={style} onClick={onClick} >{children}</button>
+        <button className={`rounded-full bg-main h-14 ${passedClassName}`} style={style} onClick={onClick} >{children}</button>
     )
 }
 
