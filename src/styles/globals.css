@@ -27,3 +27,6 @@ body {
     rgba(11, 8, 41, 1) 100%
   );
 }
+.react-json-view {
+  word-break: break-all;
+  }
