@@ -1,6 +1,8 @@
 import { IProfileItem } from '@/services/http'
 import { shorterString } from '@/utils'
 import React, { FC } from 'react'
+import { IoShieldOutline } from 'react-icons/io5'
+
 import { IMediaItem, mediasIcons } from '../Icons'
 
 const list = [
@@ -49,8 +51,8 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                 <div className=' text-sm'>
                     {shorterString(verifyData?.auth_hash || '')}
                 </div>
-                <div className='text-[#40AA84]'>
-                    {verified && <span>Your {item.name} has been abstracted</span>}
+                <div className='text-[#40AA84] flex items-center'>
+                    {verified && <> <IoShieldOutline size={18} color={"#40AA84"}/> &nbsp; <span>Your {item.name} has been abstracted</span></>}
                 </div>
             </> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded opacity-50 justify-center cursor-pointer disabled:cursor-not-allowed' disabled={!ready}>
                 <div className='p-1 rounded-full bg-white mr-2'>{

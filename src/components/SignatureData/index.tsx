@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react'
 import { ImUser } from 'react-icons/im'
-import { RiHistoryFill } from 'react-icons/ri'
-import ReactJson from 'react-json-view'
+import { FaUserAlt } from 'react-icons/fa'
 import JsonItem from '../JsonItem'
 
 interface ISignatureData {
@@ -14,20 +13,20 @@ const SignatureData:FC<ISignatureData> = ({data}) => {
     }
     return (
         <div className=''>
-            <div className='flex flex-row-reverse py-20'>
-                <div className={`py-0.5 px-2  bg-[#000] inline-flex justify-between   rounded-full  `}>
-                    <button className={`mr-4 w-7 h-7 rounded-full`} onClick={onClick}>
+            <div className='flex flex-row-reverse py-10 '>
+                <div className={`py-0.5 px-1  bg-[#1f1f1f] inline-flex justify-between   rounded-full  `}>
+                    <button disabled className={`mr-2 w-6 h-6 rounded-full cursor-not-allowed px-1`} onClick={onClick}>
                         {
                             !showAll ?
-                                <ImUser color={'#9352FF'} className={`${!showAll ? 'visible' : 'hidden'}`} size={24} />
-                                : <div className='w-6 h-6 bg-white rounded-full'>
+                                <ImUser color={'#9352FF'} className={`${!showAll ? 'visible' : 'hidden'}`} size={18} />
+                                : <div className='w-5 h-5 bg-white rounded-full'>
                                 </div>
                         }
                     </button>
-                    <button className={` rounded-full`} onClick={onClick}>
+                    <button disabled className={` rounded-full cursor-not-allowed`} onClick={onClick}>
                         {
                             showAll ?
-                                <RiHistoryFill color={'#9352FF'} size={24} /> : <div className='w-6 h-6   bg-white rounded-full'>
+                                <FaUserAlt color={'#9352FF'} size={18} /> : <div className='w-5 h-5   bg-white rounded-full'>
                                 </div>
                         }
 

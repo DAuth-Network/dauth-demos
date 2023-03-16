@@ -14,7 +14,7 @@ body {
 }
 
 .logo-gray path {
-  fill: #999AA0;
+  fill: #999aa0;
 }
 .logo-gray svg {
   height: 12px;
@@ -29,4 +29,14 @@ body {
 }
 .react-json-view {
   word-break: break-all;
-  }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}

@@ -9,10 +9,9 @@ const Layout: FC<ILayout> = ({ children }) => {
     return (
 
         <>
-           
+
             <div className='dark text-white'>
 
-                <Header />
                 <main>{children}</main>
             </div></>
     )
