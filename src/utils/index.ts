@@ -6,3 +6,8 @@ export const sleep = (seconds = 2) => {
         setTimeout(() => {resolve()}, seconds * 1000)
     })
 }
+export const isEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailRegex.test(email)
+}

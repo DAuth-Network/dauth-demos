@@ -1,27 +1,28 @@
 import React, { FC } from 'react'
-import EmailInput, { EStep } from '../Input/EmailInput'
+import { ReactSVG } from 'react-svg'
+import EmailInput from '../Input/EmailInput'
 import Logo from '../Logo'
+import { EStep } from '../StepLoading'
 
 interface ISignIn {
     onSubmit: (email: string) => void
-    step: EStep
+    step: EStep,
+    show: boolean
 }
-const SignIn: FC<ISignIn> = ({ onSubmit, step }) => {
+const SignIn: FC<ISignIn> = ({ onSubmit, step, show }) => {
     return (
         <>
             <div className='flex flex-col justify-center items-center'>
-                <div className='w-20 h-20 rounded-3xl flex justify-center items-center mb-4' style={{
-                    backgroundColor: `rgb(249,87,251)`,
-                    background: `linear-gradient(129deg, rgba(249,87,251,1) 0%, rgba(11,8,41,1) 80%)`
+                <div className='rounded-3xl flex justify-center items-center mb-4' style={{
                 }}>
-                    <Logo />
+                    <ReactSVG src="/logo-2.svg" className={'w-full'} width={80} />
                 </div>
-                <div className='text-3xl font-semibold'>
+                <div className='text-3xl font-semibold mb-6'>
                     Sign in / Sign up
                 </div>
             </div>
             <div>
-                <EmailInput onSubmit={onSubmit} step={step} />
+                <EmailInput show={show} onSubmit={onSubmit} step={step}  />
             </div>
 
         </>

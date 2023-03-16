@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 interface ICodeIn {
     email: string,
     resend: () => Promise<void>
+    show: boolean
 }
 const coldDown = 60 * 1000
 enum Estep {
@@ -24,7 +25,7 @@ const inputClasses: any = {
     [Estep.failed]: "bg-[#3f292c] text-[#EE736F] border-[#EE736F]",
     [Estep.ready]: " bg-[#262629] text-white border-[#383838]",
 }
-const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
+const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
     const AuthInputRef = useRef<AuthCodeRef>(null);
     const router = useRouter()
     const [code, setResult] = useState('');
@@ -104,7 +105,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend }) => {
                 <div className={`${isLoading ? 'hidden' : 'block'}`}>
                     <AuthCode
                         ref={AuthInputRef}
-
+                        isPassword={!show}
                         allowedCharacters='numeric'
                         containerClassName='flex w-full justify-evenly'
                         inputClassName={`w-12 h-12 mx-2 rounded-xl outline-none text-center border  text-[22px] ${inputClasses[status]}`}

@@ -9,10 +9,7 @@ import { useRouter } from 'next/router';
 
 const Header = () => {
     const router = useRouter()
-    const logout = () => {
-        localStorage.setItem('token', '')
-        router.push('/auth')
-    }
+   
     useEffect(() => {
         // router.push('/auth')
         const token = localStorage.getItem('token')
@@ -20,10 +17,13 @@ const Header = () => {
             router.push('/auth')
         }
     }, [router])
+    const onclick = () => {
+        router.push('/')
+    }
     return (
-        <div className='w-screen flex absolute h-16 px-20'>
+        <div className='w-screen flex py-12'>
             <div className='flex-row flex items-center  w-1/2'>
-                <div className='flex flex-row items-center text-2xl cursor-pointer'>
+                <div className='flex flex-row items-center text-2xl cursor-pointer' onClick={onclick}>
                     <Logo />
                     <div className='px-2 font-medium'>
                         DAuth Network
@@ -31,15 +31,10 @@ const Header = () => {
                 </div>
 
                 <div className='bg-purple-600 bg-opacity-30 rounded-lg px-2 ml-2 '>
-                    demo
+                    Demo
                 </div>
             </div>
-            <div className='flex-1 flex justify-between items-center'>
-                <div></div>
-                {
-                    router.pathname !== '/auth' && <PrimaryButton passedClassName='w-[120px] h-[32px] bg-[#1f1f1f]' style={{background: '#1f1f1f'}} onClick={logout}>Log out</PrimaryButton>
-                }
-            </div>
+          
 
         </div>
     )
