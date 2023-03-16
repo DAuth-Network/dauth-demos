@@ -8,6 +8,7 @@ import { FiMail } from 'react-icons/fi'
 import { motion } from "framer-motion"
 import { ImSpinner } from "react-icons/im"
 import { useRouter } from 'next/router';
+import { sleep } from '@/utils';
 
 interface ICodeIn {
     email: string,
@@ -59,8 +60,10 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
             const cipher_code = await encrypt(code, shareKey)
             const res = await dauth_confirmRegisteredEmail({ cipher_code, session_id })
             localStorage.setItem('token', res.token)
+            await sleep(1)
             setIsLoading(false)
             setStatus(Estep.success)
+            await sleep(0.5)
             router.push('/')
             
         } catch (error) {
