@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import React, { FC } from 'react'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { FiCheck } from 'react-icons/fi'
-import { ImSpinner } from 'react-icons/im'
+import { CgSpinnerAlt } from 'react-icons/cg'
 export enum EStep {
     default,
     exchange,
@@ -40,7 +40,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                         ease: "easeInOut",
                     }}
                 >
-                    <ImSpinner color={"#833cf8"} size={24} />
+                    <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
                     <div className='w-4/5 ml-2 text-[#A1A1A1]'>
@@ -56,7 +56,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                         ease: "easeInOut",
                     }}
                 >
-                    <ImSpinner color={"#833cf8"} size={24} />
+                    <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
                     <div className='w-4/5 ml-2 text-[#A1A1A1]'>
@@ -72,7 +72,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                         ease: "easeInOut",
                     }}
                 >
-                    <ImSpinner color={"#833cf8"} size={24} />
+                    <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
                     <div className='w-4/5 ml-2 text-[#A1A1A1]'>

@@ -6,7 +6,7 @@ import React, { FC, useEffect, useRef, useState } from 'react'
 import AuthCode, { AuthCodeRef } from 'react-auth-code-input';
 import { FiMail } from 'react-icons/fi'
 import { motion } from "framer-motion"
-import { ImSpinner } from "react-icons/im"
+import { CgSpinnerAlt } from "react-icons/cg"
 import { useRouter } from 'next/router';
 import { sleep } from '@/utils';
 
@@ -102,7 +102,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
                             ease: "easeInOut",
                         }}
                     >
-                        <ImSpinner color={"#1B59EF"} size={40} />
+                        <CgSpinnerAlt color={"white"} size={40} />
                     </motion.div>
                 }
                 <div className={`${isLoading ? 'hidden' : 'block'}`}>

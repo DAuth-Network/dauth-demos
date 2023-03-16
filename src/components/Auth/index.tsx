@@ -25,7 +25,6 @@ const AuthContainer = () => {
             setLoadingStep(EStep.hiding)
             setShow(false)
 
-            await sleep()
             await dauth_registerEmail({ cipher_email, session_id })
             setLoadingStep(EStep.success)
             await sleep()
