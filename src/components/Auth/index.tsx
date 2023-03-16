@@ -28,7 +28,7 @@ const AuthContainer = () => {
             await sleep()
             await dauth_registerEmail({ cipher_email, session_id })
             setLoadingStep(EStep.success)
-            await sleep(1.5)
+            await sleep()
             setEmail(email)
             setStep(1)
             setLoadingStep(EStep.default)
