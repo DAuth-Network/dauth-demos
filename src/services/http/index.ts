@@ -18,6 +18,26 @@ interface exchangeKeyEequestPayload {
     key: string
 
 }
+instance.interceptors.response.use(
+    (response) => {
+        if (response.data.status !== 'fail') {
+            return response
+        } else {
+            return Promise.reject(response.data.error_msg)
+        }
+    },
+    (error) => {
+        if (error.response) {
+            console.log('Status:', error.response.status);
+            console.log('Data:', error.response.data);
+        } else if (error.request) {
+            console.log('No response from server.');
+        } else {
+            console.log('Error:', error.message);
+        }
+        return Promise.reject(error);
+    }
+);
 export const dauth_exchangeKey = async (payload: exchangeKeyEequestPayload): Promise<any> => {
     try {
         const response: AxiosResponse = await instance.post(`/exchange_key`, payload);
@@ -72,7 +92,6 @@ export const dauth_getUserInfo = async (): Promise<ResponsePayload<IProfileItem[
                 'Authorization': localStorage.getItem('token')
             }
         })
-        console.log(response)
         return response.data;
     } catch (error: any) {
         throw new Error(error.message);

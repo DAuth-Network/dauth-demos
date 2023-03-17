@@ -59,6 +59,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
             const { session_id, shareKey } = await exchangeKey.exchange()
             const cipher_code = await encrypt(code, shareKey)
             const res = await dauth_confirmRegisteredEmail({ cipher_code, session_id })
+           
             localStorage.setItem('token', res.token)
             await sleep(1)
             setIsLoading(false)
