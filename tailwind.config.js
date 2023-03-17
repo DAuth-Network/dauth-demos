@@ -14,7 +14,7 @@ module.exports = {
         'main': '#833CF8'
       },
       fontSize: {
-        'xs': '13px',
+        'xs': '14px',
       }
     },
   },
