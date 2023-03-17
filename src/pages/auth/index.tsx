@@ -11,7 +11,7 @@ const Auth = () => {
     }
     return (
         <div className='h-screen flex-row flex   bg-black'>
-            <div className='absolute '>
+            <div className='absolute w-full px-10'>
                 <Header />
             </div>
 
