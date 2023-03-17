@@ -11,7 +11,7 @@ export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
   const router = useRouter()
   const profileData = useMemo(() => {
-    if (profile) {
+    if (profile && profile.data) {
       return profile.data.filter((item) => item.auth_hash)
     } else {
       return []
