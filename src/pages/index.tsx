@@ -28,19 +28,19 @@ export default function Home() {
 
 
   return (
-    <div className='flex flex-row'>
-      <div className='w-1/2 h-screen p-20 bg-dark relative overflow-auto'>
-        <div className='absolute top-0'>
-          <Header></Header>
+    <div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+      <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 bg-dark relative lg:overflow-auto'>
+        <div className='lg:absolute top-0 w-full'>
+          <Header className='px-0'></Header>
         </div>
-        <div className='flex flex-row justify-around my-10'>
-          <div className='w-28 h-28 flex-none bg-[#2b2b2b] rounded-full mr-10'>
+        <div className='flex flex-row lg:justify-around my-10 '>
+          <div className='lg:w-28 lg:h-28 w-16 h-16 flex-none bg-[#2b2b2b] rounded-full mr-10'>
 
           </div>
           <div className='w-4/5 flex flex-col justify-evenly'>
-            <div className='bg-[#2b2b2b] rounded-2xl w-20 h-4'>
+            <div className='bg-[#2b2b2b] rounded-2xl w-20 h-4 mb-2'>
             </div>
-            <div className='bg-[#2b2b2b] rounded-2xl w-32 h-4'>
+            <div className='bg-[#2b2b2b] rounded-2xl w-32 h-4 mb-2'>
             </div>
             <div>
               <MediaList verifiedList={verifiedList} />
@@ -50,14 +50,14 @@ export default function Home() {
         <VerifiedList verifiedList={verifiedList} profile={profile ? profile.data : []} />
 
       </div>
-      <div className='w-1/2  bg-liner  p-20 '>
+      <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#1f1f1f]  bg-liner lg:p-20 '>
         <div className='flex-1 flex justify-between items-center'>
           <div></div>
           {
             router.pathname !== '/auth' && <PrimaryButton passedClassName='w-[120px] h-[32px] bg-[#1f1f1f]  rounded-lg' style={{backgroundColor: '#1f1f1f'}}  onClick={logout}>Log out</PrimaryButton>
           }
         </div>
-        <div >
+        <div className='w-4/5 lg:w-full mx-auto' >
           <SignatureData data={profileData} />
         </div>
       </div>

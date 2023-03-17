@@ -27,7 +27,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                         }
                     </button>
 
-                    <div className='w-4/5 ml-2 text-[#A1A1A1]'>
+                    <div className='w-4/5 ml-2 text-[#A1A1A1] text-sm lg:text-base'>
                         Implemented with DAuth. None of your data will be revealed.
                     </div></>
             }
@@ -43,7 +43,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                     <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
-                    <div className='w-4/5 ml-2 text-[#A1A1A1]'>
+                    <div className='w-4/5 ml-2 text-[#A1A1A1] text-sm lg:text-base'>
                         Establishing a secure connection with DAuth node
                     </div></>
             }
@@ -59,7 +59,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                     <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
-                    <div className='w-4/5 ml-2 text-[#A1A1A1]'>
+                    <div className='w-4/5 ml-2 text-[#A1A1A1] text-sm lg:text-base'>
                         Encrypting your email.
                     </div></>
             }
@@ -75,7 +75,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                     <CgSpinnerAlt color={"#833cf8"} size={24} />
                 </motion.div>
 
-                    <div className='w-4/5 ml-2 text-[#A1A1A1]'>
+                    <div className='w-4/5 ml-2 text-[#A1A1A1] text-sm lg:text-base'>
                         Hiding your identity.
                     </div></>
             }
@@ -83,7 +83,7 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
                 step === EStep.success && <>
                     <FiCheck color={"#40AA84"} size={24} />
 
-                    <div className='w-4/5 ml-2 text-[#40AA84]'>
+                    <div className='w-4/5 ml-2 text-[#40AA84] text-sm lg:text-base'>
                         Succeeded!
                     </div></>
             }

@@ -10,7 +10,7 @@ interface IPrimaryButton {
 }
 const PrimaryButton: FC<IPrimaryButton> = ({ children, onClick, style, passedClassName, disabled }) => {
     return (
-        <button className={`rounded-full bg-main h-14 ${passedClassName} disabled:cursor-not-allowed disabled:opacity-50`} disabled={disabled}  style={style} onClick={onClick} >{children}</button>
+        <button className={`rounded-full bg-main h-14 ${passedClassName} disabled:cursor-not-allowed disabled:opacity-50 outline-none`} disabled={disabled}  style={style} onClick={onClick} >{children}</button>
     )
 }
 

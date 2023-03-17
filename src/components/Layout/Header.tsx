@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import Image from 'next/image'
 import { ReactSVG } from 'react-svg';
 import css from 'styled-jsx/css';
@@ -6,8 +6,10 @@ import Logo from '../Logo';
 import PrimaryButton from '../Button/PrimaryButton';
 import { useRouter } from 'next/router';
 
-
-const Header = () => {
+interface IHeader {
+    className?: string
+}
+const Header: FC<IHeader> = ({className}) => {
     const router = useRouter()
    
     useEffect(() => {
@@ -21,11 +23,11 @@ const Header = () => {
         router.push('/')
     }
     return (
-        <div className='w-screen flex py-12'>
-            <div className='flex-row flex items-center  w-1/2'>
-                <div className='flex flex-row items-center text-2xl cursor-pointer' onClick={onclick}>
+        <div className={`w-full flex md:py-12 py-6 px-6 ${className}`}>
+            <div className='flex-row flex items-center lg:w-1/2'>
+                <div className='flex flex-row items-center  cursor-pointer' onClick={onclick}>
                     <Logo />
-                    <div className='px-2 font-medium'>
+                    <div className='px-2 text-xl lg:text-2xl font-medium'>
                         DAuth Network
                     </div>
                 </div>

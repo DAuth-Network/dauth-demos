@@ -43,7 +43,8 @@ const AuthContainer = () => {
 
 
     return (
-        <div className='bg-dark rounded-2xl 2xl:w-3/5 w-4/5 h-3/5 min-h-fit  flex flex-col  items-center justify-around p-10 px-20'>
+        <div className='bg-[#141414] lg:bg-dark md:rounded-b-2xl rounded-b-none 
+        rounded-t-2xl 2xl:w-3/5 lg:w-4/5 h-3/5 flex flex-col  items-center justify-around px-10 py-20 lg:px-20'>
             <div className='w-full'>
                 {
                     step === 0 && <SignIn show={show} onSubmit={run} step={loadingStep} />
@@ -59,7 +60,7 @@ const AuthContainer = () => {
             </div>
 
             <div className='text-[#999AA0] text-xs '>
-                <div className='flex-row flex justify-center items-center  mt-4 text-center'>
+                <div className='flex-row flex justify-center items-center  lg:mt-4 mt-8 text-center'>
                     <div>Secured by</div>
                     <Logo className='logo-gray' />
                     <div className='text-[#999AA0] text-xs'>

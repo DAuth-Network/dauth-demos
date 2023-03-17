@@ -13,7 +13,7 @@ const SignatureData:FC<ISignatureData> = ({data}) => {
     }
     return (
         <div className=''>
-            <div className='flex flex-row-reverse py-10 '>
+            <div className='flex flex-row-reverse lg:py-10 '>
                 <div className={`py-0.5 px-1  bg-[#1f1f1f] inline-flex justify-between   rounded-full  `}>
                     <button disabled className={`mr-2 w-6 h-6 rounded-full cursor-not-allowed px-1`} onClick={onClick}>
                         {
@@ -34,7 +34,7 @@ const SignatureData:FC<ISignatureData> = ({data}) => {
                 </div>
 
             </div>
-            <div className='p-20 h-full bg-[#1f1f1f] rounded-lg'>
+            <div className='lg:p-20 lg:h-full bg-[#1f1f1f]  rounded-lg '>
                 {
                     <JsonItem item={data} />
                 }

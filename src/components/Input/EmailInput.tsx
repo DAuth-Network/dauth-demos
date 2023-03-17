@@ -24,8 +24,8 @@ const EmailInput: FC<IEmailInput> = ({ onSubmit, step, show }) => {
     return (
         <>
             <div>
-                <input type={show ? 'text' : 'password'} value={email} disabled={disabled} onChange={(e) => setEmail(e.target.value)} className={` rounded-full w-full bg-[#262629] text-[#999AA0] outline-none h-14 px-6 mb-5 disabled:cursor-not-allowed disabled:opacity-50`} placeholder='Enter your email' />
-                <PrimaryButton disabled={disabled} passedClassName={`w-full`} onClick={handleSubmit} >Continue</PrimaryButton>
+                <input type={show ? 'text' : 'password'} value={email} disabled={disabled} onChange={(e) => setEmail(e.target.value)} className={` rounded-full w-full bg-[#262629] text-[#999AA0] outline-none h-14 px-6 mb-5 disabled:cursor-not-allowed disabled:opacity-50 text-sm lg:text-base`} placeholder='Enter your email' />
+                <PrimaryButton disabled={disabled} passedClassName={`w-full text-sm lg:text-base`} onClick={handleSubmit} >Continue</PrimaryButton>
             </div>
         </>
 
