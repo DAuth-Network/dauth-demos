@@ -102,7 +102,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
                             ease: "easeInOut",
                         }}
                     >
-                        <CgSpinnerAlt color={"white"} size={40} />
+                        <CgSpinnerAlt color={"w"} size={40} />
                     </motion.div>
                 }
                 <div className={`${isLoading ? 'hidden' : 'block'}`}>
