@@ -17,7 +17,7 @@ const SignIn: FC<ISignIn> = ({ onSubmit, step, show }) => {
                 }}>
                     <ReactSVG src="/logo-2.svg" className={'w-full'} width={80} />
                 </div>
-                <div className='text-3xl font-semibold mb-6'>
+                <div className=' text-xl lg:text-3xl font-semibold mb-6'>
                     Sign in / Sign up
                 </div>
             </div>

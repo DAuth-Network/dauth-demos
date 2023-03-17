@@ -5,13 +5,6 @@ import { IoShieldOutline } from 'react-icons/io5'
 
 import { IMediaItem, mediasIcons } from '../Icons'
 
-const list = [
-    {
-        item: "email",
-        verified: false,
-        value: '8743b52063cd84097a65d1633f5c74f5'
-    }
-]
 const itemList = ['email', 'twitter', 'github', 'discord', 'google']
 interface IVerifiedItem {
     item: IMediaItem,
@@ -72,11 +65,11 @@ interface IVerifiedList {
 }
 const VerifiedList: FC<IVerifiedList> = ({ verifiedList, profile }) => {
     return (
-        <div className='xl:w-2/3 w-full'>
+        <div className='lg:w-2/3  lg:h-auto'>
             <div className='text-white text-lg'>
                 Verify Accounts
             </div>
-            <div className=''>
+            <div className='h-[300px] lg:h-auto overflow-y-scroll '>
                 {
                     mediasIcons.map((item, index) => {
                         return <VerifiedItem key={item.name} item={item} verified={verifiedList.includes(item.name) } profile={profile}/>

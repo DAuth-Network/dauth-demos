@@ -78,7 +78,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
     });
 
     return (
-        <div className='flex flex-col justify-center items-center w-full'>
+        <div className='flex flex-col justify-center items-center w-full '>
             <div className='rounded-3xl flex justify-center items-center mb-4' >
                 <FiMail size={54} />
             </div>
@@ -112,12 +112,12 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
                         isPassword={!show}
                         allowedCharacters='numeric'
                         containerClassName='flex w-full justify-evenly'
-                        inputClassName={`w-12 h-12 mx-2 rounded-xl outline-none text-center border  text-[22px] ${inputClasses[status]}`}
+                        inputClassName={`lg:w-12 lg:h-12 w-10 h-10 mx-2 last:mr-0 rounded-xl outline-none text-center border  lg:text-[22px] text-[20px] ${inputClasses[status]}`}
                         onChange={handleOnChange} />
                     <div className='mt-10 text-center  text-sm font-semibold'>
                         {
                             status === Estep.ready && <>
-                                <span className='text-[#898989] inline-block mr-1'>Didn&apos;t receive it?</span>
+                                <span className='text-[#898989] inline-block mr-1 '>Didn&apos;t receive it?</span>
                                 {
                                     resendShow ? <span className='text-main cursor-pointer' onClick={onResend}>Resend</span> : <span className='text-main'>{formattedRes.seconds}s</span>
                                 }
@@ -127,7 +127,7 @@ const CodeIn: FC<ICodeIn> = ({ email, resend, show }) => {
                             status === Estep.success && <span className='text-[#40AA84] inline-block mr-1'>Wecome! <span className='text-xl'>🎉</span></span>
                         }
                         {
-                            status === Estep.failed && <div>
+                            status === Estep.failed && <div className=' text-sm'>
                                 <div className='text-[#CB6462] inline-block mr-1'>Incorrect code. Please try again.</div>
                                 <div>
                                     <span className='text-[#898989] inline-block mr-1'>Didn&apos;t receive it?</span>
