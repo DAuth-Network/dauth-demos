@@ -2,19 +2,23 @@ import React, { FC, useState } from 'react'
 import { ImUser } from 'react-icons/im'
 import { FaUserAlt } from 'react-icons/fa'
 import JsonItem from '../JsonItem'
+import Logout from '../Logout'
 
 interface ISignatureData {
     data: any
 }
-const SignatureData:FC<ISignatureData> = ({data}) => {
+const SignatureData: FC<ISignatureData> = ({ data }) => {
     const [showAll, setShowAll] = useState(false)
     const onClick = () => {
         setShowAll(!showAll)
     }
     return (
-        <div className=''>
-            <div className='flex flex-row-reverse lg:py-10 '>
-                <div className={`py-0.5 px-1  bg-[#1f1f1f] inline-flex justify-between   rounded-full  `}>
+        <div className='flex flex-col-reverse lg:flex-col justify-between h-full'>
+            <div className='lg:pb-10 flex lg:flex-col py-2 flex-row-reverse lg:justify-center justify-between items-center  lg:items-end lg:-mt-10'>
+                <div className='lg:mb-10'>
+                <Logout />
+                </div>
+                <div className={`py-0.5 px-1  w-16 flex-initial bg-[#1f1f1f] inline-flex justify-between   rounded-full  `}>
                     <button disabled className={`mr-2 w-6 h-6 rounded-full cursor-not-allowed px-1`} onClick={onClick}>
                         {
                             !showAll ?
@@ -34,7 +38,7 @@ const SignatureData:FC<ISignatureData> = ({data}) => {
                 </div>
 
             </div>
-            <div className='lg:p-20 lg:h-full bg-[#1f1f1f]  rounded-lg '>
+            <div className='lg:p-20 lg:h-full  bg-[#1f1f1f]  rounded-lg p-4'>
                 {
                     <JsonItem item={data} />
                 }
