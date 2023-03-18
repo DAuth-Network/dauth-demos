@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -16,17 +17,22 @@ body {
 .logo-gray path {
   fill: #999aa0;
 }
+
 .logo-gray svg {
   height: 12px;
 }
-.bg-liner {
-  background: rgb(249, 87, 251);
-  background: linear-gradient(
-    176deg,
-    rgba(249, 87, 251, 1) 0%,
-    rgba(11, 8, 41, 1) 100%
-  );
+
+
+@media screen and (min-width: 768px) {
+  .bg-liner {
+    background: rgb(249, 87, 251);
+    background: linear-gradient(176deg,
+        rgba(249, 87, 251, 1) 0%,
+        rgba(11, 8, 41, 1) 100%);
+
+  }
 }
+
 .react-json-view {
   word-break: break-all;
 }
@@ -38,5 +44,6 @@ body {
 }
 
 ::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
+  display: none;
+  /* Chrome Safari */
 }
