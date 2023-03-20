@@ -38,5 +38,5 @@ export const mediasIcons = [
     {
         name: 'telegram',
         icon: telegramIcon,
-    },
+    }
 ]

@@ -9,7 +9,6 @@ import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
 export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
-  const router = useRouter()
   const profileData = useMemo(() => {
     if (profile && profile.data) {
       return profile.data.filter((item) => item.auth_hash)
@@ -20,6 +19,7 @@ export default function Home() {
   const verifiedList = useMemo(() => {
     return profileData.map((item) => item.auth_type.toLowerCase())
   }, [profileData])
+  
 
 
 
