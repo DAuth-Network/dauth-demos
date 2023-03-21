@@ -3,6 +3,7 @@ import Header from '@/components/Layout/Header';
 import SignatureData from '@/components/SignatureData';
 import VerifiedList from '@/components/VerifiedList';
 import { dauth_getUserInfo } from '@/services/http';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -19,13 +20,13 @@ export default function Home() {
   const verifiedList = useMemo(() => {
     return profileData.map((item) => item.auth_type.toLowerCase())
   }, [profileData])
-  
+
 
 
 
 
   return (
-    <div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider clientId="821654150370-2u0uuri792d2biq0t8uf42fs9ubsf7t2.apps.googleusercontent.com"><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
@@ -48,11 +49,13 @@ export default function Home() {
 
       </div>
       <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414]  bg-liner lg:p-20 px-8 lg:px-0'>
-        
+
         <div className=' mx-auto lg:w-4/5 h-full lg:h-auto' >
           <SignatureData data={profileData} />
         </div>
       </div>
-    </div>
+    </div></GoogleOAuthProvider>
+
+
   )
 }
