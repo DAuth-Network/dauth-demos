@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from "@/store"
 import { updateActivedItem } from "@/store/verifiedSlice"
 import { TbRefresh } from "react-icons/tb"
+import { githubLogin } from "@/services/http/oauth"
+import OauthButton from "../OAuth/OauthButton"
 
 interface IVerifiedItem {
     item: IMediaItem,
@@ -23,6 +25,9 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
     }
     const onRefresh = () => {
 
+    }
+    const onSuccess = (res: any) => {
+        console.log(res)
     }
     const isActive = activedItem === item.name
     return <div className={`w-full lg:border-2 border border-[#383838] flex flex-col p-6 rounded-lg bg-[#1f1f1f] mt-4  lg:mt-8 ${isActive ? 'bg-[#2b2b2b]' : 'bg-[#1f1f1f]'} ${!ready ? ' cursor-not-allowed' : ''}`} onClick={onClick}>
@@ -65,13 +70,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                     {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
                 </div>
 
-            </> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ' disabled={!ready}>
-                <div className='p-1 rounded-full bg-white mr-2'>{
-                    item.icon({ size: 16, color: '#1F1F1F' })
-                }
-                </div>
-                Continue with &nbsp;<span className=' capitalize'>{item.name}</span>
-            </button>
+            </> : <OauthButton item={item} ready={ready} />
         }
 
     </div >
