@@ -7,7 +7,6 @@ import React, { FC, useEffect, useState } from 'react'
 import GoogleLogin from 'react-google-login'
 import { IMediaItem } from '../Icons'
 import GoogleOauth from './GoogleOauth'
-
 interface IOAuthButton {
     item: IMediaItem
     ready: boolean
