@@ -13,7 +13,8 @@ interface IOAuthButton {
 }
 const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     const onSuccess = async (res: any) => {
-        const code = res.access_token
+        console.log(res)
+        const code = res.code
         try {
             const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
             await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'google' })
@@ -23,12 +24,14 @@ const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
         }
 
     }
-    const onFailure = (erro: any) => {
-        console.log(erro)
-    }
+    // const onFailure = () => {
+    //     console.log(erro)
+    // }
 
     const login = useGoogleLogin({
         onSuccess,
+        flow: 'auth-code',
+        redirect_uri: "http://localhost:3000/oauth/google"
     });
 
 
