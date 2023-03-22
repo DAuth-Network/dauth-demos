@@ -1,7 +1,5 @@
 import { loginWithOauth } from '@/services/http'
 import { githubLogin } from '@/services/http/oauth'
-import { encrypt, exchnageKeyAndEncrypt } from '@/utils/crypto'
-import exchangeKey from '@/utils/exchangeKey'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import GoogleLogin from 'react-google-login'
