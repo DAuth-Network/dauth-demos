@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import { IconType } from 'react-icons'
 import { mediasIcons } from '../Icons'
-
+import {orderBy} from 'lodash'
+import _ from 'lodash'
 
 interface IMediaItem {
   active: boolean,
@@ -20,10 +21,11 @@ interface IMediaList {
   verifiedList: string[]
 }
 const MediaList:FC<IMediaList> = ({verifiedList}) => {
+  const _mediaIcons = orderBy(mediasIcons, (item) => verifiedList.includes(item.name) ? 0 : 1)
   return (
     <div className='flex flex-row '>
       {
-        mediasIcons.map((item, index) => {
+        _mediaIcons.map((item, index) => {
           return <MediaItem name={item.name} icon={item.icon} active={verifiedList.includes(item.name)} key={item.name} />
         })
       }
