@@ -1,5 +1,5 @@
 import { loginWithOauth } from '@/services/http';
-import { encrypt, exchnageKeyAndEncrypt } from '@/utils/crypto';
+import { encrypt, exchangeKeyAndEncrypt } from '@/utils/crypto';
 import exchangeKey from '@/utils/exchangeKey';
 import { useRequest } from 'ahooks';
 import axios from 'axios';
@@ -8,10 +8,11 @@ import React, { useEffect, useState } from 'react'
 
 
 const Github = () => {
+    const [code, setCode] = useState('')
     async function githubLoginFlow(code: string) {
         try {
-            const { session_id, cipher_code } = await exchnageKeyAndEncrypt(code)
-            await loginWithOauth({ cipher_code: cipher_code!, session_id, oauth_type: 'github' })
+            const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
+            await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'github' })
         } catch (error) {
             console.log(error)
 
@@ -21,17 +22,16 @@ const Github = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         console.log(code)
-        if (code) {
-            githubLoginFlow(code).then(res => {
-                console.log(res)
-            })
-        }
-
+        setCode(code!)
     }, [])
 
 
     return (
-        <div>github</div>
+        <div className='text-red-900'>
+            github
+            <button onClick={() => {githubLoginFlow(code)}}>请求</button>
+
+        </div>
     )
 }
 

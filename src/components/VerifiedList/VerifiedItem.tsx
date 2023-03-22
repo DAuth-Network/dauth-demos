@@ -62,15 +62,16 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
             }
         </div>
         {
-            verified ? <>
-                <div className=' text-sm'>
-                    {shorterString(verifyData?.auth_hash || '')}
-                </div>
-                <div className='text-[#40AA84] flex items-center  lg:text-base text-sm mt-1'>
-                    {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
-                </div>
+            // verified ? <>
+            //     <div className=' text-sm'>
+            //         {shorterString(verifyData?.auth_hash || '')}
+            //     </div>
+            //     <div className='text-[#40AA84] flex items-center  lg:text-base text-sm mt-1'>
+            //         {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
+            //     </div>
 
-            </> : <OauthButton item={item} ready={ready} />
+            // </> :
+             <OauthButton item={item} ready={ready} />
         }
 
     </div >

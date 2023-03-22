@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { IconBaseProps } from 'react-icons'
 import { useGoogleLogin } from '@react-oauth/google';
-import { exchnageKeyAndEncrypt } from '@/utils/crypto';
+import { exchangeKeyAndEncrypt } from '@/utils/crypto';
 import { loginWithOauth } from '@/services/http';
 import { TbRefresh } from "react-icons/tb"
 
@@ -15,8 +15,8 @@ const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     const onSuccess = async (res: any) => {
         const code = res.access_token
         try {
-            const { session_id, cipher_code } = await exchnageKeyAndEncrypt(code)
-            await loginWithOauth({ cipher_code: cipher_code!, session_id, oauth_type: 'google' })
+            const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
+            await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'google' })
         } catch (error) {
             console.log(error)
 

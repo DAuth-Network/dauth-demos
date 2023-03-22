@@ -41,7 +41,7 @@ export async function hashAndEncrypt(rawText: string, key: string) {
     const encrypted = await encrypt(rawText, key)
     return encrypted
 }
-export async function exchnageKeyAndEncrypt(rawText: string) {
+export async function exchangeKeyAndEncrypt(rawText: string) {
     const { session_id, shareKey } = await exchangeKey.exchange()
     const cipher_code = await encrypt(rawText, shareKey)
     return {session_id, cipher_code}
