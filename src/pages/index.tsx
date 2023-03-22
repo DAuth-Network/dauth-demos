@@ -26,7 +26,7 @@ export default function Home() {
 
 
   return (
-    <GoogleOAuthProvider clientId="821654150370-2u0uuri792d2biq0t8uf42fs9ubsf7t2.apps.googleusercontent.com"><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider clientId="821654150370-regko070lj9uepk3krh09m8tpth2364h.apps.googleusercontent.com"><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
@@ -54,7 +54,8 @@ export default function Home() {
           <SignatureData data={profileData} />
         </div>
       </div>
-    </div></GoogleOAuthProvider>
+    </div>
+    </GoogleOAuthProvider>
 
 
   )

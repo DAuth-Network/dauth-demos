@@ -47,8 +47,8 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                         Verified
                     </div>
                     {
-                        item.name !== 'email' && < div className="w-2 cursor-pointer" onClick={onRefresh}>
-                            <TbRefresh size={20} />
+                        item.name !== 'email' && < div className="w-2 cursor-pointer" >
+                            <OauthButton item={item} ready={ready} isRefresh />
                         </div>
                     }
                 </div>
@@ -62,15 +62,15 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
             }
         </div>
         {
-            // verified ? <>
-            //     <div className=' text-sm'>
-            //         {shorterString(verifyData?.auth_hash || '')}
-            //     </div>
-            //     <div className='text-[#40AA84] flex items-center  lg:text-base text-sm mt-1'>
-            //         {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
-            //     </div>
+            verified ? <>
+                <div className=' text-sm'>
+                    {shorterString(verifyData?.auth_hash || '')}
+                </div>
+                <div className='text-[#40AA84] flex items-center  lg:text-base text-sm mt-1'>
+                    {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
+                </div>
 
-            // </> :
+            </> :
              <OauthButton item={item} ready={ready} />
         }
 

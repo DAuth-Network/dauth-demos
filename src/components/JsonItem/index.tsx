@@ -9,7 +9,7 @@ const JsonItem: FC<IJsonItem> = ({ item }) => {
     return (
         <div>
             <div className='react-json-view'>
-                <ReactJson src={item} theme={'twilight'} displayDataTypes={false} displayObjectSize={false} name={false} collapseStringsAfterLength={25} />
+                <ReactJson src={item} theme={'twilight'} displayDataTypes={false} displayObjectSize={false} name={false}  />
 
             </div>
         </div>

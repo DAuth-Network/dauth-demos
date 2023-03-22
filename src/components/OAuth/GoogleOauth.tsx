@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { IconBaseProps } from 'react-icons'
 import { useGoogleLogin } from '@react-oauth/google';
 import { exchangeKeyAndEncrypt } from '@/utils/crypto';
 import { loginWithOauth } from '@/services/http';
 import { TbRefresh } from "react-icons/tb"
+import RefreshButton from './RefreshButton';
 
 
 interface IOAuthButton {
@@ -12,6 +13,8 @@ interface IOAuthButton {
 
 }
 const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
+    const [loading, setLoading] = useState(false)
+
     const onSuccess = async (res: any) => {
         console.log(res)
         const code = res.code
@@ -21,21 +24,28 @@ const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
         } catch (error) {
             console.log(error)
 
+        } finally {
+            setLoading(false)
         }
 
     }
-    // const onFailure = () => {
-    //     console.log(erro)
-    // }
+
 
     const login = useGoogleLogin({
         onSuccess,
         flow: 'auth-code',
-        redirect_uri: "http://localhost:3000/oauth/google"
+        onNonOAuthError(nonOAuthError) {
+            console.log("nonOAuthError")
+            setLoading(false)
+        },
     });
+    const onClick = () => {
+        login()
+        setLoading(true)
+    }
 
 
-    return (isRefresh ? <TbRefresh size={24} /> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ' onClick={() => { login() }} >
+    return (isRefresh ? <RefreshButton onClick={onClick} loading={loading} /> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ' onClick={onClick} >
         <div className='p-1 rounded-full bg-white mr-2'>{
             icon({ size: 16, color: '#1F1F1F' })
         }
