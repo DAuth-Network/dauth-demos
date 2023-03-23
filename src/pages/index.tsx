@@ -8,6 +8,9 @@ import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
+const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
+console.log(clientID)
+
 export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
   const profileData = useMemo(() => {
@@ -20,13 +23,10 @@ export default function Home() {
   const verifiedList = useMemo(() => {
     return profileData.map((item) => item.auth_type.toLowerCase())
   }, [profileData])
-
-
-
-
+  
 
   return (
-    <GoogleOAuthProvider clientId="821654150370-regko070lj9uepk3krh09m8tpth2364h.apps.googleusercontent.com"><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
