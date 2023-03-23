@@ -21,11 +21,8 @@ const StepLoading: FC<IStepLoading> = ({ step, show, toggleShow }) => {
         <div className='flex-1 mt-4 text-xs justify-center flex items-center h-6'>
             {
                 step === EStep.default && <>
-                    <button className='cursor-pointer' onClick={() => {toggleShow(!show)}}>
-                        {
-                            show ? <FaEye  size={24} color={'#833cf8'} /> : <FaEyeSlash size={24} color={'#833cf8'} />
-                        }
-                    </button>
+                    <FaEyeSlash size={24} color={'#833cf8'} />
+
 
                     <div className='w-4/5 ml-2 text-[#A1A1A1] text-sm lg:text-base'>
                         Implemented with DAuth. None of your data will be revealed.
