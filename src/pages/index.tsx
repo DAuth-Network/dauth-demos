@@ -3,10 +3,13 @@ import Header from '@/components/Layout/Header';
 import SignatureData from '@/components/SignatureData';
 import VerifiedList from '@/components/VerifiedList';
 import { dauth_getUserInfo } from '@/services/http';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
+const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
+
 export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
   const profileData = useMemo(() => {
@@ -21,11 +24,8 @@ export default function Home() {
   }, [profileData])
   
 
-
-
-
   return (
-    <div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
@@ -48,11 +48,14 @@ export default function Home() {
 
       </div>
       <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414]  bg-liner lg:p-20 px-8 lg:px-0'>
-        
+
         <div className=' mx-auto lg:w-4/5 h-full lg:h-auto' >
           <SignatureData data={profileData} />
         </div>
       </div>
     </div>
+    </GoogleOAuthProvider>
+
+
   )
 }

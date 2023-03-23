@@ -1,4 +1,5 @@
 import forge from 'node-forge'
+import exchangeKey from './exchangeKey';
 export async function encrypt(rawText: string, key: string) {
     console.log("encrypt content", rawText, " with ", key);
     if (key === "") {
@@ -39,4 +40,9 @@ export async function hashAndEncrypt(rawText: string, key: string) {
     const hash = hashStr(rawText)
     const encrypted = await encrypt(rawText, key)
     return encrypted
+}
+export async function exchangeKeyAndEncrypt(rawText: string) {
+    const { session_id, shareKey } = await exchangeKey.exchange()
+    const cipher_code = await encrypt(rawText, shareKey)
+    return {session_id, cipher_code}
 }

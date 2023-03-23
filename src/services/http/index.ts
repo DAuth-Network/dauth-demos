@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import forge from "node-forge"
 
 const instance = axios.create({
-    baseURL: 'https://demo.keysafe.network:30002/dauth'
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
 });
 
 interface RequestPayload {
@@ -91,6 +91,24 @@ export const dauth_getUserInfo = async (): Promise<ResponsePayload<IProfileItem[
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
+        })
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+};
+
+interface ILoginWithOauthPayload {
+    session_id: string
+    cipher_code: string
+    oauth_type: string
+}
+export const loginWithOauth = async (data: ILoginWithOauthPayload): Promise<ResponsePayload<any>> => {
+    try {
+        const response: AxiosResponse = await instance.post(`/auth_oauth`, data, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            },
         })
         return response.data;
     } catch (error: any) {

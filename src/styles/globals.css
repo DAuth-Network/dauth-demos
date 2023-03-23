@@ -35,6 +35,7 @@ body {
 
 .react-json-view {
   word-break: break-all;
+  max-height: 50vh;
 }
 
 .disabled {

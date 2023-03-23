@@ -18,7 +18,7 @@ const VerifiedList: FC<IVerifiedList> = ({ verifiedList, profile }) => {
             <div className=' lg:h-auto h-[30vh] overflow-y-scroll bg-dark lg:bg-transparent px-4 lg:px-0 rounded-lg mt-4'>
                 {
                     mediasIcons.map((item, index) => {
-                        return <VerifiedItem key={item.name} item={item} verified={verifiedList.includes(item.name) } profile={profile} active/>
+                        return <VerifiedItem key={item.name} item={item} verified={verifiedList.includes(item.name) } profile={profile}/>
                     })
                 }
             </div>
