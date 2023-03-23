@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react'
-import { IconBaseProps } from 'react-icons'
 import { useGoogleLogin } from '@react-oauth/google';
 import { exchangeKeyAndEncrypt } from '@/utils/crypto';
 import { loginWithOauth } from '@/services/http';
-import { TbRefresh } from "react-icons/tb"
 import RefreshButton from './RefreshButton';
+import { useRouter } from 'next/router';
 
 
 interface IOAuthButton {
@@ -14,13 +13,13 @@ interface IOAuthButton {
 }
 const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     const [loading, setLoading] = useState(false)
-
+    const router = useRouter()
     const onSuccess = async (res: any) => {
-        console.log(res)
         const code = res.code
         try {
             const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
             await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'google' })
+            router.reload()
         } catch (error) {
             console.log(error)
 
