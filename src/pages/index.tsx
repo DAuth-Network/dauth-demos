@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
-console.log(clientID)
 
 export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});

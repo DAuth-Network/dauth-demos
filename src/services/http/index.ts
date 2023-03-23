@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import forge from "node-forge"
 
 const instance = axios.create({
-    baseURL: 'https://demo.keysafe.network:30003/dauth'
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
 });
 
 interface RequestPayload {
