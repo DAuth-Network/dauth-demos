@@ -1,13 +1,13 @@
-import PrimaryButton from '@/components/Button/PrimaryButton';
 import Header from '@/components/Layout/Header';
+import Image from 'next/legacy/image';
 import SignatureData from '@/components/SignatureData';
 import VerifiedList from '@/components/VerifiedList';
-import { dauth_getUserInfo } from '@/services/http';
+import { dauth_getUserInfo, IProfileItem } from '@/services/http';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
-import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
+import _ from 'lodash';
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 
 export default function Home() {
@@ -22,7 +22,11 @@ export default function Home() {
   const verifiedList = useMemo(() => {
     return profileData.map((item) => item.auth_type.toLowerCase())
   }, [profileData])
-  
+  const username = useMemo(() => {
+    const item = _.find((item: IProfileItem) => { item.auth_type.toLowerCase() === 'email' })
+    return item ? item.auth_hash : ''
+  }, [profileData])
+
 
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
@@ -31,13 +35,15 @@ export default function Home() {
           <Header className='px-0'></Header>
         </div>
         <div className='flex flex-row lg:justify-around lg:my-10 my-4 '>
-          <div className='lg:w-28 lg:h-28 w-16 h-16 flex-none bg-[#2b2b2b] rounded-full mr-10'>
-
+          <div className='lg:w-28 lg:h-28 w-16 h-16 flex flex-none  rounded-full'>
+            <Image src={'/avatar.png'} layout={'fixed'} width={100} height={100} alt='' />
           </div>
           <div className='w-4/5 flex flex-col justify-evenly'>
-            <div className='bg-[#2b2b2b] rounded-2xl w-20 h-4 mb-2'>
+            <div className='w-20 h-4 mb-2'>
+              name
             </div>
-            <div className='bg-[#2b2b2b] rounded-2xl w-32 h-4 mb-2'>
+            <div className='rounded-2xl h-4 mb-2'>
+              Navigating the vast Decentralized Ocean 🌊
             </div>
             <div>
               <MediaList verifiedList={verifiedList} />
