@@ -8,6 +8,7 @@ import { useRequest } from 'ahooks';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
 import _ from 'lodash';
+import DAuthModal from '@/components/Modal/DAuthModal';
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 
 export default function Home() {
@@ -23,14 +24,16 @@ export default function Home() {
     return profileData.map((item) => item.auth_type.toLowerCase())
   }, [profileData])
   const username = useMemo(() => {
-    const item = _.find((item: IProfileItem) => { item.auth_type.toLowerCase() === 'email' })
-    return item ? item.auth_hash : ''
+    const item = _.find(profileData, (item: IProfileItem) => item.auth_type.toLowerCase() === 'email')
+    return item ? item.auth_hash.slice(-5) : ''
+
   }, [profileData])
 
 
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
+        
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
         </div>
@@ -39,10 +42,10 @@ export default function Home() {
             <Image src={'/avatar.png'} layout={'fixed'} width={100} height={100} alt='' />
           </div>
           <div className='w-4/5 flex flex-col justify-evenly'>
-            <div className='w-20 h-4 mb-2'>
-              name
+            <div className='w-20 h-4 mb-2 font-semibold'>
+              Privateer{username}
             </div>
-            <div className='rounded-2xl h-4 mb-2'>
+            <div className='rounded-2xl h-4 mb-2 text-gray-500'>
               Navigating the vast Decentralized Ocean 🌊
             </div>
             <div>
@@ -61,7 +64,5 @@ export default function Home() {
       </div>
     </div>
     </GoogleOAuthProvider>
-
-
   )
 }
