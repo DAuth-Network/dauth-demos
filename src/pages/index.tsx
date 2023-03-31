@@ -8,10 +8,11 @@ import { useRequest } from 'ahooks';
 import { useMemo } from 'react';
 import MediaList from "../components/MediaList";
 import _ from 'lodash';
-import DAuthModal from '@/components/Modal/DAuthModal';
+import useModal from '@/hooks/useModal';
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 
 export default function Home() {
+
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
   const profileData = useMemo(() => {
     if (profile && profile.data) {
@@ -28,12 +29,22 @@ export default function Home() {
     return item ? item.auth_hash.slice(-5) : ''
 
   }, [profileData])
-
+  const handleConfirm = () => { }
+  const { showModal, closeModal, Modal } = useModal()
 
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
-        
+        <Modal modalIsOpen={false} closeModal={closeModal} onConfirm={handleConfirm} >
+          <div>
+            Authenticate your identity anonymously with the DAuth Network.
+          </div>
+          <div>
+            
+          </div>
+
+
+        </Modal>
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
         </div>
@@ -53,7 +64,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <VerifiedList verifiedList={verifiedList} profile={profile ? profile.data : []} />
+        <VerifiedList showModal={showModal} verifiedList={verifiedList} profile={profile ? profile.data : []} />
 
       </div>
       <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414]  bg-liner lg:p-20 px-8 lg:px-0'>

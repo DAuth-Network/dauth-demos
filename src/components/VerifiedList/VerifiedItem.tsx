@@ -13,8 +13,9 @@ interface IVerifiedItem {
     item: IMediaItem,
     verified: boolean,
     profile: IProfileItem[],
+    showModal: () => void
 }
-const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
+const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile, showModal }) => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
     const dispatch = useDispatch()
     const ready = ['email', 'google', 'github'].includes(item.name)
@@ -70,7 +71,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                 </div>
                 <div>
                     <button className="w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] 
-                    p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 " onClick={() => { }}>
+                    p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 " onClick={showModal}>
                         <RiAddFill className="text-xl mr-2"/>
                         Add Wallet Provider
                     </button>

@@ -18,10 +18,16 @@ body {
   fill: #999aa0;
 }
 
+
 .logo-gray svg {
   height: 12px;
 }
-
+.logo-white path {
+  fill: #fff;
+}
+.logo-white svg {
+  height: 16px;
+}
 
 @media screen and (min-width: 768px) {
   .bg-liner {
