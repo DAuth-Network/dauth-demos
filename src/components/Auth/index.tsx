@@ -1,3 +1,4 @@
+import useDauthModal from '@/hooks/useDauthModal'
 import { dauth_registerEmail } from '@/services/http'
 import { sleep } from '@/utils'
 import { encrypt, hashAndEncrypt } from '@/utils/crypto'
@@ -40,7 +41,6 @@ const AuthContainer = () => {
     const { loading, run, refreshAsync } = useRequest(onEmailSubmit, {
         manual: true
     });
-
 
     return (
         <div className='bg-[#141414] lg:bg-dark md:rounded-b-2xl rounded-b-none 

@@ -5,6 +5,7 @@ import { SnackbarProvider, enqueueSnackbar } from 'notistack'
 import { store } from '../store'
 import { Provider as ReduxProvider } from 'react-redux'
 export default function App({ Component, pageProps }: AppProps) {
+
   return <Layout>
     <ReduxProvider store={store}>
       <SnackbarProvider >
