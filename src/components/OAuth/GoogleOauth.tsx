@@ -4,6 +4,7 @@ import { exchangeKeyAndEncrypt } from '@/utils/crypto';
 import { loginWithOauth } from '@/services/http';
 import RefreshButton from './RefreshButton';
 import { useRouter } from 'next/router';
+import useDauthModal from '@/hooks/useDauthModal';
 
 
 interface IOAuthButton {
@@ -14,6 +15,7 @@ interface IOAuthButton {
 const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const {showModal, closeModal, Modal} = useDauthModal()
     const onSuccess = async (res: any) => {
         const code = res.code
         try {
@@ -44,13 +46,20 @@ const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     }
 
 
-    return (isRefresh ? <RefreshButton onClick={onClick} loading={loading} /> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ' onClick={onClick} >
-        <div className='p-1 rounded-full bg-white mr-2'>{
-            icon({ size: 16, color: '#1F1F1F' })
-        }
-        </div>
-        Continue with &nbsp;<span className=' capitalize'>Google</span>
-    </button>)
+    return (
+        <>
+            <Modal onConfirm={onClick}></Modal>
+            {
+                isRefresh ? <RefreshButton onClick={showModal} loading={loading} /> : <button className='w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ' onClick={showModal} >
+                    <div className='p-1 rounded-full bg-white mr-2'>{
+                        icon({ size: 16, color: '#1F1F1F' })
+                    }
+                    </div>
+                    Continue with &nbsp;<span className=' capitalize'>Google</span>
+                </button>
+            }
+        </>
+    )
 }
 
 export default GoogleOauth

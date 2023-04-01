@@ -1,6 +1,7 @@
 import PrimaryButton from '@/components/Button/PrimaryButton';
 import Logo from '@/components/Logo';
 import React, { FC, ReactNode } from 'react'
+import Image from 'next/legacy/image';
 
 interface IDAuthModal {
     modalIsOpen: boolean,
@@ -10,20 +11,21 @@ interface IDAuthModal {
 }
 
 const DAuthModal: FC<IDAuthModal> = ({ modalIsOpen, children, closeModal, onConfirm }) => {
-    const handleConfirm = () => {
+    const handleConfirm = (event: Event) => {
         closeModal()
         onConfirm!()
+        event.preventDefault()
     }
     return (
-        <div className={`main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden  justify-center items-center animated fadeIn faster ${modalIsOpen ? 'flex' : 'hidden'}`}
+        <div onClick={closeModal} className={`main-modal  fixed w-full h-100 inset-0 z-50 overflow-hidden  justify-center items-center animated fadeIn faster ${modalIsOpen ? 'flex' : 'hidden'}`}
             style={{ background: "rgba(0,0,0,.7)" }}>
             <div
-                className="shadow-lg modal-container bg-black w-11/12 md:max-w-md mx-auto rounded-lg  z-50 overflow-y-auto">
+                className="shadow-lg modal-container w-full md:max-w-sm md:max-h-auto bg-black  mx-auto rounded-lg h-full md:h-auto  z-50 overflow-y-auto">
                 <div className="modal-content py-4 text-left px-6">
                     <div className="flex justify-between items-center pb-3">
                         <div className="text-2xl flex justify-center items-center w-full">
                             <Logo className='fill-current text-white logo-white' />
-                            <div className='text-xs'>
+                            <div className='text-lg'>
                                 DAuth Network
                             </div>
                         </div>
@@ -36,12 +38,15 @@ const DAuthModal: FC<IDAuthModal> = ({ modalIsOpen, children, closeModal, onConf
                             </svg>
                         </div>
                     </div>
-                    <div className="my-5 text-red-200">
-                        {children}
-                    </div>
-                    <div className="flex justify-end pt-2">
-                        <button
-                            className="focus:outline-none modal-close px-4 bg-gray-400 p-3 rounded-lg text-black hover:bg-gray-300" onClick={handleConfirm}>Continue</button>
+                    <div className='px-4'>
+                        <div className="w-full my-5  flex flex-col justify-center items-center">
+                            <img src={'/demo-logo.png'} width={100} alt='' />
+                            {children}
+                        </div>
+                        <div className="w-full">
+                            <PrimaryButton
+                                passedClassName="focus:outline-none modal-close w-full " onClick={handleConfirm}>Continue</PrimaryButton>
+                        </div>
                     </div>
                 </div>
             </div>
