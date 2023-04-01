@@ -2,20 +2,20 @@ import { IProfileItem } from "@/services/http"
 import { shorterString } from "@/utils"
 import { FC } from "react"
 import { IoShieldOutline } from "react-icons/io5"
-import { RiAddFill } from "react-icons/ri"
 import { IMediaItem } from "../Icons"
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from "@/store"
 import { updateActivedItem } from "@/store/verifiedSlice"
+import { TbRefresh } from "react-icons/tb"
+import { githubLogin } from "@/services/http/oauth"
 import OauthButton from "../OAuth/OauthButton"
 
 interface IVerifiedItem {
     item: IMediaItem,
     verified: boolean,
     profile: IProfileItem[],
-    showModal: () => void
 }
-const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile, showModal }) => {
+const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
     const dispatch = useDispatch()
     const ready = ['email', 'google', 'github'].includes(item.name)
@@ -69,16 +69,9 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile, showModal })
                 <div className='text-[#40AA84] flex items-center  lg:text-base text-sm mt-1'>
                     {verified && <> <IoShieldOutline size={18} color={"#40AA84"} /> &nbsp; <span>Your {item.name} has been abstracted</span></>}
                 </div>
-                <div>
-                    <button className="w-[220px] text-sm text-[#fff] flex flex-row items-center bg-[#1d1d1d] 
-                    p-2 rounded justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 " onClick={showModal}>
-                        <RiAddFill className="text-xl mr-2"/>
-                        Add Wallet Provider
-                    </button>
-                </div>
 
             </> :
-                <OauthButton item={item} ready={ready} />
+             <OauthButton item={item} ready={ready} />
         }
 
     </div >
