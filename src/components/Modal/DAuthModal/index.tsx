@@ -1,7 +1,6 @@
 import PrimaryButton from '@/components/Button/PrimaryButton';
 import Logo from '@/components/Logo';
 import React, { FC, ReactNode } from 'react'
-import Image from 'next/legacy/image';
 
 interface IDAuthModal {
     modalIsOpen: boolean,
