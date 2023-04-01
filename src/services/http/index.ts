@@ -77,14 +77,12 @@ export const dauth_confirmRegisteredEmail = async (payload: RequestPayload): Pro
     }
 };
 
-type TAuthType = 'email' | 'google' | 'twitter' | 'github' | 'discord'
-
 // Get user info
 export interface IProfileItem {
     auth_hash: string
     auth_id: string
     auth_signature: string
-    auth_type: TAuthType
+    auth_type: string
 }
 
 export const dauth_getUserInfo = async (): Promise<ResponsePayload<IProfileItem[]>> => {
