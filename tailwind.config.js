@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
+  plugins: [
+    [require("rippleui")]
+  ],
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
