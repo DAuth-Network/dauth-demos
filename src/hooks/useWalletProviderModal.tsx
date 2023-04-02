@@ -40,7 +40,7 @@ const useWalletProviderModal = () => {
             </div>
             <div className='w-full'>
                 {
-                    walletProviders.map((item) => (<WalletProviderItem name={item.name} icon={item.icon} text={item.text} onClick={handleClick} />))
+                    walletProviders.map((item) => (<WalletProviderItem key={item.name} name={item.name} icon={item.icon} text={item.text} onClick={handleClick} />))
                 }
             </div>
         </div>
