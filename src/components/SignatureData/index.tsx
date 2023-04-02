@@ -4,8 +4,10 @@ import { FaUserAlt } from 'react-icons/fa'
 import JsonItem from '../JsonItem'
 import Logout from '../Logout'
 import { RootState } from '@/store'
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Fira_Code } from 'next/font/google'
+import _ from 'lodash'
+import { mediasIcons } from '../Icons'
 interface ISignatureData {
     data: any
 }
@@ -21,19 +23,23 @@ const SignatureData: FC<ISignatureData> = ({ data }) => {
     const dataToShow = useMemo(() => {
         if (showAll) {
             return data
-        } 
+        }
         console.log(activedItem, 'activedItem')
         return data.find((item: any) => item.auth_type.toLowerCase() === activedItem)
-        
+
     }, [showAll, activedItem, data])
+    const item = useMemo(() => {
+        return _.find(
+            mediasIcons, (item) => item.name.toLowerCase() === activedItem)
+    }, [activedItem, mediasIcons])
     return (
         <div className='flex flex-col-reverse lg:flex-col justify-between h-full'>
             <div className='lg:pb-10 flex lg:flex-col py-2 flex-row-reverse lg:justify-center justify-between items-center  lg:items-end lg:-mt-10'>
                 <div className='lg:mb-10'>
-                <Logout />
+                    <Logout />
                 </div>
                 <div className={`py-0.5 px-1  w-16 flex-initial bg-[#1f1f1f] inline-flex justify-between   rounded-full  `}>
-                    <button  className={`mr-2 w-6 h-6 rounded-full px-1`} onClick={onClick}>
+                    <button className={`mr-2 w-6 h-6 rounded-full px-1`} onClick={onClick}>
                         {
                             !showAll ?
                                 <MdHistory color={'#9352FF'} className={`${!showAll ? 'visible' : 'hidden'}`} size={18} />
@@ -41,7 +47,7 @@ const SignatureData: FC<ISignatureData> = ({ data }) => {
                                 </div>
                         }
                     </button>
-                    <button  className={` rounded-full pr-1`} onClick={onClick}>
+                    <button className={` rounded-full pr-1`} onClick={onClick}>
                         {
                             showAll ?
                                 <FaUserAlt color={'#9352FF'} size={16} /> : <div className='w-5 h-5   bg-white rounded-full'>
@@ -52,10 +58,30 @@ const SignatureData: FC<ISignatureData> = ({ data }) => {
                 </div>
 
             </div>
-            <div className='lg:p-20 lg:h-full  bg-[#1f1f1f]  rounded-lg p-4  overflow-scroll'>
-                {
-                   dataToShow ?  <JsonItem item={dataToShow} /> : <span className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
-                }
+            <div className='lg:h-full  bg-[#1f1f1f]  rounded-lg  overflow-scroll relative'>
+                <div className='bg-[#3D2860] py-4 lg:px-10 px-6 text-lg font-semibold flex'>
+                    Credential proof &nbsp;
+                    {
+                        !showAll && <span className='flex'>
+                        for
+                        <div className='ml-4 mr-2 flex items-center'>
+                            <div className='p-1 rounded-full bg-white'>{
+                                item!.icon({ size: 16, color: '#1F1F1F' })
+                            }
+                            </div>
+                        </div>
+                        <div className='lg:text-lg text-base font-semibold mr-4 capitalize'>
+                            {item!.name}
+                        </div>
+                    </span>
+                    }
+                </div>
+                <div className='lg:py-20 lg:px-10 p-6 '>
+
+                    {
+                        dataToShow ? <JsonItem item={dataToShow} /> : <span className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
+                    }
+                </div>
             </div>
 
         </div>
