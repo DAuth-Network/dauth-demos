@@ -13,6 +13,7 @@ const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 import { FaEyeSlash } from 'react-icons/fa'
 import { MdOutlineLock } from 'react-icons/md';
 import useDauthModal from '@/hooks/useDauthModal';
+import useWalletProviderModal from '@/hooks/useWalletProviderModal';
 export default function Home() {
 
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
@@ -34,7 +35,7 @@ export default function Home() {
   const handleConfirm = () => {
 
   }
-  const { showModal, closeModal, Modal } = useDauthModal()
+  const { showModal, closeModal, Modal } = useWalletProviderModal()
 
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>

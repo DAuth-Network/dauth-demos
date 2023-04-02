@@ -14,6 +14,7 @@ const useDauthModal = () => {
 
     const Modal = ({ onConfirm }: any) => <DAuthModal modalIsOpen={modalShow} closeModal={closeModal} onConfirm={onConfirm} >
         <div className='flex flex-col items-center'>
+            <img src={'/demo-logo.png'} width={100} alt='' />
 
             <div className='text-lg text-center my-4'>
                 Authenticate your identity anonymously with the <div className=' font-semibold'>DAuth Network.</div>

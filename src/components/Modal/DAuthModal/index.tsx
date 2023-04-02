@@ -1,7 +1,6 @@
 import PrimaryButton from '@/components/Button/PrimaryButton';
 import Logo from '@/components/Logo';
 import React, { FC, ReactNode } from 'react'
-import Image from 'next/legacy/image';
 
 interface IDAuthModal {
     modalIsOpen: boolean,
@@ -11,16 +10,15 @@ interface IDAuthModal {
 }
 
 const DAuthModal: FC<IDAuthModal> = ({ modalIsOpen, children, closeModal, onConfirm }) => {
-    const handleConfirm = (event: Event) => {
+    const handleConfirm = () => {
         closeModal()
         onConfirm!()
-        event.preventDefault()
     }
     return (
         <div onClick={closeModal} className={`main-modal  fixed w-full h-100 inset-0 z-50 overflow-hidden  justify-center items-center animated fadeIn faster ${modalIsOpen ? 'flex' : 'hidden'}`}
             style={{ background: "rgba(0,0,0,.7)" }}>
             <div
-                className="shadow-lg modal-container w-full md:max-w-sm md:max-h-auto bg-black  mx-auto rounded-lg h-full md:h-auto  z-50 overflow-y-auto">
+                className="shadow-lg modal-container w-full md:max-w-sm md:max-h-auto bg-black  mx-auto rounded-lg h-full md:h-auto  z-50 overflow-y-auto" onClick={(event) => {event.stopPropagation()}}>
                 <div className="modal-content py-4 text-left px-6">
                     <div className="flex justify-between items-center pb-3">
                         <div className="text-2xl flex justify-center items-center w-full">
@@ -29,7 +27,7 @@ const DAuthModal: FC<IDAuthModal> = ({ modalIsOpen, children, closeModal, onConf
                                 DAuth Network
                             </div>
                         </div>
-                        <div className="modal-close cursor-pointer z-50">
+                        <div className="modal-close cursor-pointer z-50" onClick={closeModal}>
                             <svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                 viewBox="0 0 18 18">
                                 <path
@@ -40,7 +38,6 @@ const DAuthModal: FC<IDAuthModal> = ({ modalIsOpen, children, closeModal, onConf
                     </div>
                     <div className='px-4'>
                         <div className="w-full my-5  flex flex-col justify-center items-center">
-                            <img src={'/demo-logo.png'} width={100} alt='' />
                             {children}
                         </div>
                         <div className="w-full">
