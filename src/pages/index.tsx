@@ -38,21 +38,21 @@ export default function Home() {
   const { showModal, closeModal, Modal } = useWalletProviderModal()
 
   return (
-    <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#1F1F1F]'>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto'>
         <Modal onConfirm={handleConfirm} />
         <div className='lg:absolute top-0 w-full'>
           <Header className='px-0'></Header>
         </div>
-        <div className='flex flex-row lg:justify-around lg:my-10 my-4 '>
-          <div className='lg:w-28 lg:h-28 w-16 h-16 flex flex-none  rounded-full'>
-            <Image src={'/avatar.png'} layout={'fixed'} width={100} height={100} alt='' />
+        <div className='flex flex-row lg:justify-around lg:my-10 my-4 items-center '>
+          <div className='lg:w-28 lg:h-28 w-16 h-16 flex flex-none  rounded-full mr-4'>
+            <img src={'/avatar.png'}  alt='' />
           </div>
           <div className='w-4/5 flex flex-col justify-evenly'>
             <div className='w-20 h-4 mb-2 font-semibold'>
               Privateer{username}
             </div>
-            <div className='rounded-2xl h-4 mb-2 text-gray-500'>
+            <div className='rounded-2xl mb-2 text-gray-500'>
               Navigating the vast Decentralized Ocean 🌊
             </div>
             <div>
@@ -63,7 +63,7 @@ export default function Home() {
         <VerifiedList showModal={showModal} verifiedList={verifiedList} profile={profile ? profile.data : []} />
 
       </div>
-      <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414]  bg-liner lg:p-20 px-8 lg:px-0'>
+      <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414] lg:p-20 px-8 lg:px-0'>
 
         <div className=' mx-auto lg:w-4/5 h-full lg:h-auto' >
           <SignatureData data={profileData} />
