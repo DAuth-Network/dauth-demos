@@ -11,8 +11,12 @@ const Github = () => {
     const [code, setCode] = useState('')
     const router = useRouter()
     async function githubLoginFlow(code: string) {
-        const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
-        await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'github' })
+        try {
+            const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
+            await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'github' })
+        } catch (error) {
+            console.log(error)  
+        }
     }
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
