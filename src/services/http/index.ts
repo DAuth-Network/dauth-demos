@@ -18,6 +18,16 @@ interface ResponsePayload<T> {
 interface exchangeKeyEequestPayload {
     key: string
 }
+instance.interceptors.request.use(
+    config => {
+        config.data = {
+            ...config.data,
+            client_id: 'demo',
+            
+        }
+        return config;
+    }
+)
 
 instance.interceptors.response.use(
     (response) => {
@@ -41,10 +51,7 @@ instance.interceptors.response.use(
 )
 export const dauth_exchangeKey = async (payload: exchangeKeyEequestPayload): Promise<any> => {
     try {
-        const response: AxiosResponse = await instance.post(`/exchange_key`, {
-            client_id: 'demo',
-            ...payload
-        })
+        const response: AxiosResponse = await instance.post(`/exchange_key`, payload)
         return response.data
     } catch (error: any) {
         throw new Error(error.message)
@@ -59,7 +66,7 @@ interface registerEmailEequestPayload {
 
 export const dauth_registerEmail = async (payload: RequestPayload): Promise<any> => {
     try {
-        const response: AxiosResponse = await instance.post(`/register_email`, payload)
+        const response: AxiosResponse = await instance.post(`/auth_email`, payload)
         return response.data
     } catch (error: any) {
         throw new Error(error.message)
@@ -74,7 +81,7 @@ interface registerEmailEequestPayload {
 
 export const dauth_confirmRegisteredEmail = async (payload: RequestPayload): Promise<any> => {
     try {
-        const response: AxiosResponse = await instance.post(`/register_email_confirm`, payload)
+        const response: AxiosResponse = await instance.post(`/auth_email_confirm`, payload)
         return response.data
     } catch (error: any) {
         throw new Error(error.message)

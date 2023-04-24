@@ -21,22 +21,22 @@ export const mediasIcons = [
         name: 'email',
         icon: emailIcon,
     },
-    {
-        name: 'google',
-        icon: googleIcon,
-    },
-    {
-        name: 'github',
-        icon: githubIcon,
-    }, {
-        name: 'twitter',
-        icon: twitterIcon,
-    }, {
-        name: 'discord',
-        icon: discordIcon,
-    },
-    {
-        name: 'telegram',
-        icon: telegramIcon,
-    }
+    // {
+    //     name: 'google',
+    //     icon: googleIcon,
+    // },
+    // {
+    //     name: 'github',
+    //     icon: githubIcon,
+    // }, {
+    //     name: 'twitter',
+    //     icon: twitterIcon,
+    // }, {
+    //     name: 'discord',
+    //     icon: discordIcon,
+    // },
+    // {
+    //     name: 'telegram',
+    //     icon: telegramIcon,
+    // }
 ]
