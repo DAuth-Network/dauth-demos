@@ -5,7 +5,7 @@ import VerifiedList from '@/components/VerifiedList';
 import { dauth_getUserInfo, IProfileItem } from '@/services/http';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import MediaList from "../components/MediaList";
 import _ from 'lodash';
 import useModal from '@/hooks/useDauthModal';
@@ -14,8 +14,17 @@ import { FaEyeSlash } from 'react-icons/fa'
 import { MdOutlineLock } from 'react-icons/md';
 import useDauthModal from '@/hooks/useDauthModal';
 import useWalletProviderModal from '@/hooks/useWalletProviderModal';
+import { useRouter } from 'next/router';
 export default function Home() {
+  const router = useRouter()
 
+  useEffect(() => {
+    const item = localStorage.getItem('token')
+    if (!item) {
+      router.push('/auth')
+    }
+    
+  }, [])
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
   const profileData = useMemo(() => {
     if (profile && profile.data) {
