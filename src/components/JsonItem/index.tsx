@@ -10,7 +10,6 @@ const JsonItem: FC<IJsonItem> = ({ item }) => {
         <div>
             <div className='react-json-view'>
                 <ReactJson src={item} theme={'twilight'} displayDataTypes={false} displayObjectSize={false} name={false}  />
-
             </div>
         </div>
     )

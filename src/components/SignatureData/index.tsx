@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import { MdHistory } from 'react-icons/md'
 import { FaUserAlt } from 'react-icons/fa'
 import JsonItem from '../JsonItem'
@@ -9,25 +9,24 @@ import { Fira_Code } from 'next/font/google'
 import _ from 'lodash'
 import { mediasIcons } from '../Icons'
 interface ISignatureData {
-    data: any
+    data?: any
 }
 const firaCode = Fira_Code({ subsets: ['latin'] })
 
 const SignatureData: FC<ISignatureData> = ({ data }) => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
+    const [jwt, setJwt] = useState('')
 
+    useEffect(() => {
+      // Perform localStorage action
+      const item = localStorage.getItem('token')
+      setJwt(item!)
+    }, [])
     const [showAll, setShowAll] = useState(false)
     const onClick = () => {
         setShowAll(!showAll)
     }
-    const dataToShow = useMemo(() => {
-        if (showAll) {
-            return data
-        }
-        console.log(activedItem, 'activedItem')
-        return data.find((item: any) => item.auth_type.toLowerCase() === activedItem)
-
-    }, [showAll, activedItem, data])
+    
     const item = useMemo(() => {
         return _.find(
             mediasIcons, (item) => item.name.toLowerCase() === activedItem)
@@ -76,11 +75,8 @@ const SignatureData: FC<ISignatureData> = ({ data }) => {
                     </span>
                     }
                 </div>
-                <div className='lg:py-20 lg:px-10 p-6 '>
-
-                    {
-                        dataToShow ? <JsonItem item={dataToShow} /> : <span className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
-                    }
+                <div className='lg:py-20 lg:px-10 p-6 te '>
+                    <JsonItem item={{jwt}}/>
                 </div>
             </div>
 

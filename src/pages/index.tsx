@@ -66,7 +66,7 @@ export default function Home() {
       <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414] lg:p-20 px-8 lg:px-0'>
 
         <div className=' mx-auto lg:w-4/5 h-full lg:h-auto' >
-          <SignatureData data={profileData} />
+          <SignatureData  />
         </div>
       </div>
     </div>

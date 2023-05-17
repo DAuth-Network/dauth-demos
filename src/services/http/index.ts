@@ -129,3 +129,14 @@ export const loginWithOauth = async (
         throw new Error(error.message)
     }
 }
+
+export const verifyJwt = async (
+    jwt: string
+): Promise<any> => {
+    try {
+        const response: AxiosResponse = await instance.post(`https://dev-api.dauth.network/lit/verify`, {jwt})
+        return response.data
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}

@@ -11,14 +11,6 @@ interface IHeader {
 }
 const Header: FC<IHeader> = ({className}) => {
     const router = useRouter()
-   
-    useEffect(() => {
-        // router.push('/auth')
-        const token = localStorage.getItem('token')
-        if (!token && router.pathname !== '/auth') {
-            router.push('/auth')
-        }
-    }, [router])
     const onclick = () => {
         router.push('/')
     }
