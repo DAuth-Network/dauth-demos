@@ -29,6 +29,7 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
     const onConfirm = async () => {
         try {
             setLoading(true)
+            setSig('')
             const jwt = localStorage.getItem('token')
             const res = await verifyJwt(jwt!)
             if (res.jwt_status.status === 'ok') {
@@ -37,6 +38,7 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
             }
         } catch (error) {
             setStatus(false)
+            setSig('')
         } finally {
             setLoading(false)
             setModalShow(true)
@@ -50,11 +52,11 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
                     {
                         statues ?
                             <div className=' text-green-400 text-lg'>
-                                Initial Lit Action succeed, JWT is <br /> valid.
+                                The JWT is authenticated through Lit Action. JWT is <br /> valid.
                             </div>
                             :
                             <div className=' text-red-400 text-lg'>
-                                Initial Lit Action error, JWT is invalid,  please try again.
+                                The JWT is authenticated through Lit Action.  please try again.
                             </div>
                     }
                     <div>
