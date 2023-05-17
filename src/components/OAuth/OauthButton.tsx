@@ -52,7 +52,7 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
                     {
                         statues ?
                             <div className=' text-green-400 text-lg'>
-                                Authentication success!
+                                Autehntication successful!
                             </div>
                             :
                             <div className=' text-red-400 text-lg'>
