@@ -52,13 +52,14 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
                     {
                         statues ?
                             <div className=' text-green-400 text-lg'>
-                                The JWT is authenticated through Lit Action. JWT is <br /> valid.
+                                The JWT is authenticated through Lit Action. JWT is valid.
                             </div>
                             :
                             <div className=' text-red-400 text-lg'>
-                                The JWT is authenticated through Lit Action.  please try again.
+                                The JWT is authenticated through Lit Action. JWT is invalid. please try again.
                             </div>
                     }
+                    <br />
                     <div>
                         <div>Signed Message: `Hello Lit Protocol`</div>
                         <br />
