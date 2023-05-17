@@ -58,9 +58,9 @@ const OauthButton: FC<IOAuthButton> = ({ item, ready, isRefresh = false }) => {
                             </div>
                     }
                     <div>
-                        <div>Signed Message: "Hello Lit Protocol"</div>
+                        <div>Signed Message: `Hello Lit Protocol`</div>
                         <br />
-                        <div>PKP Public Key: "0x04e1e6e0d77dcdd5724ee860a2177476b5975c5ecfa9d19d9c6d77605f3d03c97540146367627bd8bce5e7dc7c0cddf0a60ffb9fb7758da740d26867cd50ed84e0"</div>
+                        <div>PKP Public Key: `0x04e1e6e0d77dcdd5724ee860a2177476b5975c5ecfa9d19d9c6d77605f3d03c97540146367627bd8bce5e7dc7c0cddf0a60ffb9fb7758da740d26867cd50ed84e0`</div>
                         <br />
                         PKP signature:
                     </div>
