@@ -145,7 +145,7 @@ const SignatureData: FC<ISignatureData> = () => {
             <div className='lg:p-20 lg:h-full  bg-[#1f1f1f]  rounded-lg p-4  overflow-scroll'>
                 {
                     verifyedData ? <JsonItem item={verifyedData}/> : <span
-                        className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
+                        className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see Openid3 in actions'}</span>
                 }
                 {
                     verifyedData && <>
