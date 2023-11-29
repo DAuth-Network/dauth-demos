@@ -9,7 +9,8 @@ export function githubOauth(code: string, account: string) {
         token: code,
         request_id: account,
         id_type: "github",
-        mode: 'proof'
+        mode: 'proof',
+        withPlainAccount: true
     })
 }
 export function googleOauth(code: string, account: string) {
@@ -17,6 +18,7 @@ export function googleOauth(code: string, account: string) {
         token: code,
         request_id: account,
         id_type: "google",
-        mode: 'proof'
+        mode: 'proof',
+        withPlainAccount: true
     })
 }

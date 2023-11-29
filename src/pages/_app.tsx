@@ -28,14 +28,14 @@ const { connectors } = getDefaultWallets({
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient
+  publicClient,
 })
 export default function App({ Component, pageProps }: AppProps) {
   return <Layout>
     <ReduxProvider store={store}>
       <SnackbarProvider >
         <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>
+          <RainbowKitProvider chains={chains} locale="en">
             <Component {...pageProps} />
           </RainbowKitProvider>
         </WagmiConfig>

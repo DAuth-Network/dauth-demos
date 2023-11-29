@@ -3,12 +3,12 @@ import type {PayloadAction} from '@reduxjs/toolkit'
 
 export interface CounterState {
     activedItem: string,
-    verifyedData: string
+    verifyedData: any
 }
 
 const initialState: CounterState = {
     activedItem: 'email',
-    verifyedData: ''
+    verifyedData: null
 }
 
 

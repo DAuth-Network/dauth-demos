@@ -18,7 +18,7 @@ interface IVerifiedItem {
 const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
     const dispatch = useDispatch()
-    const ready = ['email', 'google', 'github'].includes(item.name)
+    const ready = ['email', 'google'].includes(item.name)
     const verifyData = profile.find((_item) => item.name === _item.auth_type.toLowerCase())
     const onClick = () => {
         dispatch(updateActivedItem(item.name))
