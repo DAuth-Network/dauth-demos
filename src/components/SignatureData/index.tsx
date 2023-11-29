@@ -1,4 +1,4 @@
-import React, {FC, useMemo, useState} from 'react'
+import React, {FC, useEffect, useMemo, useState} from 'react'
 import {MdHistory} from 'react-icons/md'
 import {FaUserAlt} from 'react-icons/fa'
 import JsonItem from '../JsonItem'
@@ -6,10 +6,11 @@ import Logout from '../Logout'
 import {RootState} from '@/store'
 import {useSelector} from 'react-redux';
 import {Fira_Code} from 'next/font/google'
-import {useAccount, useContractWrite, useWaitForTransaction} from "wagmi";
-import {testContractAddress} from "@/services/contracts/zkContact";
+import {useAccount, useConnect, useContractWrite, useWaitForTransaction} from "wagmi";
+import {ContractAddress, testContractAddress} from "@/services/contracts/zkContact";
 import {Contract, ethers, utils, Wallet} from "ethers";
 import {useEthersSigner} from "@/services/ethers.signer";
+import {ConnectButton} from "@rainbow-me/rainbowkit";
 
 interface ISignatureData {
     data: any
@@ -61,6 +62,8 @@ const SignatureData: FC<ISignatureData> = () => {
     const verifyedData = useSelector((state: RootState) => state.verifiedData.verifyedData)
     const [showAll, setShowAll] = useState(false)
     const singer = useEthersSigner()
+    const {isConnected} = useAccount()
+
     const onClick = () => {
         setShowAll(!showAll)
     }
@@ -72,40 +75,41 @@ const SignatureData: FC<ISignatureData> = () => {
     const {isLoading, isSuccess} = useWaitForTransaction({
         hash: data?.hash,
     })
-    const onSubmit = async () => {
-        const proof = verifyedData.data;
-        const schemaId = "0x44a18728bda7ce4b5891c75a6e6d316f8d9020453bdf55754e63c1d3a85acee9";
-        const expirationDate = '0'
-        let {auth, signature} = proof
-        signature = '0x' + signature
-        const {acc_and_type_hash, request_id, account_plain} = auth
-        const subject = request_id
-        const attestationData = utils.defaultAbiCoder.encode([
-            'string', 'string'
-        ], ['google', account_plain])
-        const hexSub = utils.hexlify(utils.toUtf8Bytes(subject))
-        console.log(utils.hexlify(utils.toUtf8Bytes(subject)))
 
-        const attestationPayload = utils.defaultAbiCoder.encode(
-            ["tuple(bytes32, uint64, bytes, bytes)"], [[
-                schemaId, expirationDate, hexSub, attestationData
-            ]]
-        )
-        const sig = utils.defaultAbiCoder.encode(
-            ["bytes[]"], [[signature]]
-        )
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc.goerli.linea.build')
-        const contract = new Contract(testContractAddress, abiContract).connect(singer!)
-        contract.attest({
-            schemaId,
-            expirationDate,
-            attestationData,
-            subject: hexSub
-        }, [signature]).then((res: any) => {
-            console.log(res)
-        }).catch((e: any) => {
+    const onSubmit = async () => {
+        try {
+            const proof = verifyedData.data;
+            const schemaId = "0x44a18728bda7ce4b5891c75a6e6d316f8d9020453bdf55754e63c1d3a85acee9";
+            const expirationDate = '0'
+            let {auth, signature} = proof
+            signature = '0x' + signature
+            const {acc_and_type_hash, request_id, account_plain} = auth
+            const subject = request_id
+            const attestationData = utils.defaultAbiCoder.encode([
+                'string', 'string'
+            ], ['google', account_plain])
+            const hexSub = utils.hexlify(utils.toUtf8Bytes(subject))
+
+            const attestationPayload = utils.defaultAbiCoder.encode(
+                ["tuple(bytes32, uint64, bytes, bytes)"], [[
+                    schemaId, expirationDate, hexSub, attestationData
+                ]]
+            )
+            const sig = utils.defaultAbiCoder.encode(
+                ["bytes[]"], [[signature]]
+            )
+            const contract = new Contract(ContractAddress, abiContract).connect(singer!)
+            const tx = await contract.attest({
+                schemaId,
+                expirationDate,
+                attestationData,
+                subject: hexSub
+            }, [signature])
+            await tx.wait()
+            alert("Success")
+        } catch (e) {
             console.log(e)
-        })
+        }
 
     }
     return (
@@ -143,9 +147,17 @@ const SignatureData: FC<ISignatureData> = () => {
                     verifyedData ? <JsonItem item={verifyedData}/> : <span
                         className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
                 }
-                <button className={`mr-2 w-32 h-12 rounded-full  bg-[#592b71]`} onClick={onSubmit}>
-                    Submit
-                </button>
+                {
+                    verifyedData && <>
+                        {
+                            isConnected ?
+                                <button className={`mr-2 w-32 h-12 rounded-full  bg-[#592b71]`} onClick={onSubmit}>
+                                    Submit
+                                </button>
+                                : <ConnectButton/>
+                        }
+                    </>
+                }
             </div>
 
 
