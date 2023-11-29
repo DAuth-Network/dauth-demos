@@ -5,20 +5,16 @@ import css from 'styled-jsx/css';
 import Logo from '../Logo';
 import PrimaryButton from '../Button/PrimaryButton';
 import { useRouter } from 'next/router';
-
+import {
+    ConnectButton,
+    getDefaultWallets,
+    RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
 interface IHeader {
     className?: string
 }
 const Header: FC<IHeader> = ({className}) => {
     const router = useRouter()
-   
-    useEffect(() => {
-        // router.push('/auth')
-        const token = localStorage.getItem('token')
-        if (!token && router.pathname !== '/auth') {
-            router.push('/auth')
-        }
-    }, [router])
     const onclick = () => {
         router.push('/')
     }
@@ -35,6 +31,9 @@ const Header: FC<IHeader> = ({className}) => {
                 <div className='bg-purple-600 bg-opacity-30 rounded-lg px-2 ml-2 '>
                     Demo
                 </div>
+                <div>
+                </div>
+
             </div>
           
 

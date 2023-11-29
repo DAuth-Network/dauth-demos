@@ -13,19 +13,20 @@ const firaCode = Fira_Code({ subsets: ['latin'] })
 
 const SignatureData: FC<ISignatureData> = ({ data }) => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
+    const verifyedData = useSelector((state: RootState) => state.verifiedData.verifyedData)
 
     const [showAll, setShowAll] = useState(false)
     const onClick = () => {
         setShowAll(!showAll)
     }
     const dataToShow = useMemo(() => {
-        if (showAll) {
-            return data
-        } 
-        console.log(activedItem, 'activedItem')
-        return data.find((item: any) => item.auth_type.toLowerCase() === activedItem)
+
+        return verifyedData
         
     }, [showAll, activedItem, data])
+    const onSubmit = () => {
+
+    }
     return (
         <div className='flex flex-col-reverse lg:flex-col justify-between h-full'>
             <div className='lg:pb-10 flex lg:flex-col py-2 flex-row-reverse lg:justify-center justify-between items-center  lg:items-end lg:-mt-10'>
@@ -56,6 +57,10 @@ const SignatureData: FC<ISignatureData> = ({ data }) => {
                 {
                    dataToShow ?  <JsonItem item={dataToShow} /> : <span className={`${firaCode.className} text-sm`}>{'// Verify your accounts to see DAuth in actions'}</span>
                 }
+                <button  className={`mr-2 w-6 h-6 rounded-full px-1`} onClick={onSubmit}>
+                    Submit
+                </button>
+
             </div>
 
         </div>

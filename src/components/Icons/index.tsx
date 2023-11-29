@@ -17,10 +17,7 @@ export interface IMediaItem {
 
 // email, google, github, twitter, discord, tg
 export const mediasIcons = [
-    {
-        name: 'email',
-        icon: emailIcon,
-    },
+
     {
         name: 'google',
         icon: googleIcon,
@@ -28,15 +25,16 @@ export const mediasIcons = [
     {
         name: 'github',
         icon: githubIcon,
-    }, {
-        name: 'twitter',
-        icon: twitterIcon,
-    }, {
-        name: 'discord',
-        icon: discordIcon,
     },
-    {
-        name: 'telegram',
-        icon: telegramIcon,
-    }
+    // {
+    //     name: 'twitter',
+    //     icon: twitterIcon,
+    // }, {
+    //     name: 'discord',
+    //     icon: discordIcon,
+    // },
+    // {
+    //     name: 'telegram',
+    //     icon: telegramIcon,
+    // }
 ]

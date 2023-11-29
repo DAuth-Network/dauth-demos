@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import PrimaryButton from '../Button/PrimaryButton'
+import {ConnectButton} from "@rainbow-me/rainbowkit";
 
 const Logout = () => {
     const router = useRouter()
@@ -11,9 +12,8 @@ const Logout = () => {
     return (
         <div className='flex-1 flex justify-between items-center'>
             <div></div>
-            {
-                router.pathname !== '/auth' && <PrimaryButton passedClassName='w-[120px] h-[32px] bg-[#1f1f1f]  rounded-lg' style={{ backgroundColor: '#1f1f1f' }} onClick={logout}>Log out</PrimaryButton>
-            }
+            <ConnectButton />
+
         </div>
     )
 }

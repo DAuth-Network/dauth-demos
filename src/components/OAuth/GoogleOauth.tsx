@@ -4,6 +4,10 @@ import { exchangeKeyAndEncrypt } from '@/utils/crypto';
 import { loginWithOauth } from '@/services/http';
 import RefreshButton from './RefreshButton';
 import { useRouter } from 'next/router';
+import {googleOauth} from "@/services/dauth";
+import {useAccount} from "wagmi";
+import {useDispatch} from "react-redux";
+import {updateVerifyedData} from "@/store/verifiedSlice";
 
 
 interface IOAuthButton {
@@ -13,13 +17,14 @@ interface IOAuthButton {
 }
 const GoogleOauth: FC<IOAuthButton> = ({ icon, isRefresh = false }) => {
     const [loading, setLoading] = useState(false)
+    const account = useAccount()
     const router = useRouter()
+    const dispatch = useDispatch()
     const onSuccess = async (res: any) => {
         const code = res.code
         try {
-            const { session_id, cipher_code } = await exchangeKeyAndEncrypt(code)
-            await loginWithOauth({ cipher_code: code!, session_id, oauth_type: 'google' })
-            router.reload()
+            const res = await googleOauth(code, 'test')
+            dispatch(updateVerifyedData(res))
         } catch (error) {
             console.log(error)
 
