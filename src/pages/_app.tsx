@@ -8,10 +8,10 @@ import { store } from '../store'
 import { Provider as ReduxProvider } from 'react-redux'
 import {configureChains, createConfig, WagmiConfig} from "wagmi";
 import {getDefaultWallets, RainbowKitProvider} from "@rainbow-me/rainbowkit";
-import {linea} from "viem/chains";
+import {linea, lineaTestnet} from "viem/chains";
 import { publicProvider } from 'wagmi/providers/public';
 const { chains, publicClient } = configureChains(
-    [linea],
+    [lineaTestnet],
     [
       publicProvider()
     ]
