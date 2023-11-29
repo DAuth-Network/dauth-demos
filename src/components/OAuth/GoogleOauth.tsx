@@ -44,7 +44,7 @@ const GoogleOauth: FC<IOAuthButton> = ({icon, isRefresh = false}) => {
         redirect_uri: "http://localhost:3000",
         onNonOAuthError(nonOAuthError) {
             console.log("nonOAuthError")
-            setLoiadng(false)
+            setLoading(false)
         },
     });
     const onClick = () => {

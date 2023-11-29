@@ -30,7 +30,7 @@ const Github = () => {
                 router.push('/')
             });
         }
-    }, [])
+    }, [code])
 
 
     return (
