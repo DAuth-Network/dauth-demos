@@ -3,66 +3,61 @@ import loadable from '@loadable/component';
 import {useContractWrite, usePrepareContractWrite, useWaitForTransaction} from "wagmi";
 import {testContractAddress} from "@/services/contracts/zkContact";
 import {keccak256} from "viem";
+import {ethers, utils} from "ethers";
 
 const ReactJson = loadable(() => import('react-json-view'));
-const abi = [{
-    "inputs": [
+const abiContract = [{
+    inputs: [
         {
-            "components": [
+            components: [
                 {
-                    "internalType": "bytes32",
-                    "name": "schemaId",
-                    "type": "bytes32"
+                    internalType: "bytes32",
+                    name: "schemaId",
+                    type: "bytes32",
                 },
                 {
-                    "internalType": "uint64",
-                    "name": "expirationDate",
-                    "type": "uint64"
+                    internalType: "uint64",
+                    name: "expirationDate",
+                    type: "uint64",
                 },
                 {
-                    "internalType": "bytes",
-                    "name": "subject",
-                    "type": "bytes"
+                    internalType: "bytes",
+                    name: "subject",
+                    type: "bytes",
                 },
                 {
-                    "internalType": "bytes",
-                    "name": "attestationData",
-                    "type": "bytes"
-                }
+                    internalType: "bytes",
+                    name: "attestationData",
+                    type: "bytes",
+                },
             ],
-            "internalType": "struct AttestationPayload",
-            "name": "attestationPayload",
-            "type": "tuple"
+            internalType: "struct AttestationPayload",
+            name: "attestationPayload",
+            type: "tuple",
         },
         {
-            "internalType": "address",
-            "name": "attester",
-            "type": "address"
-        }
+            internalType: "bytes[]",
+            name: "validationPayloads",
+            type: "bytes[]",
+        },
     ],
-    "name": "attest",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-},]
+    name: "attest",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+},,]
 
 interface IJsonItem {
     item: any
 }
 
 const JsonItem: FC<IJsonItem> = ({item}) => {
-    const proof = item.data;
-    const schemaId = "0x44a18728bda7ce4b5891c75a6e6d316f8d9020453bdf55754e63c1d3a85acee9";
-    const expirationDate = '0x'
-    const {auth, signature} = proof
-    const {acc_and_type_hash, request_id} = auth
-    const subject = keccak256(request_id)
-    const attestationData = acc_and_type_hash
     const {data, write} = useContractWrite({
         address: testContractAddress,
-        abi,
+        abi: abiContract,
         functionName: 'attest',
     })
+
 
     const {isLoading, isSuccess} = useWaitForTransaction({
         hash: data?.hash,
@@ -71,13 +66,17 @@ const JsonItem: FC<IJsonItem> = ({item}) => {
         const proof = item.data;
         const schemaId = "0x44a18728bda7ce4b5891c75a6e6d316f8d9020453bdf55754e63c1d3a85acee9";
         const expirationDate = '0x'
-        const {auth} = proof
+        const {auth, signature} = proof
         const {acc_and_type_hash, request_id} = auth
         const subject = keccak256(request_id)
         const attestationData = acc_and_type_hash
+        const attestationPayload = utils.defaultAbiCoder.encode(
+            ["bytes32", "uint64", "bytes", "bytes"],
+            [schemaId, expirationDate, subject, attestationData]
+        )
         if (write) {
             write({
-                args: [schemaId, expirationDate, subject, attestationData]
+                args: [attestationPayload, signature]
             })
         }
     }
