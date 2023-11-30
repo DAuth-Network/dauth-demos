@@ -1,7 +1,7 @@
 // @ts-ignore
 import DAuth from "@dauth/core"
 export const dauth = new DAuth({
-    baseURL: "http://167.179.99.200:30000/dauth/sdk/v1.1/",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     clientID: "demo",
 });
 export function githubOauth(code: string, account: string) {
