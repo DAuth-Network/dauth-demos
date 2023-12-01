@@ -11,7 +11,7 @@ import {getDefaultWallets, RainbowKitProvider} from "@rainbow-me/rainbowkit";
 import {linea, lineaTestnet} from "viem/chains";
 import { publicProvider } from 'wagmi/providers/public';
 const { chains, publicClient } = configureChains(
-    [linea],
+    [lineaTestnet],
     [
       publicProvider()
     ]
