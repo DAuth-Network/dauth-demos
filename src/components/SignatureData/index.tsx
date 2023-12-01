@@ -113,7 +113,7 @@ const SignatureData: FC<ISignatureData> = () => {
             const sig = utils.defaultAbiCoder.encode(
                 ["bytes[]"], [[signature]]
             )
-            const contract = new Contract(testContractAddress, abiContract).connect(singer!)
+            const contract = new Contract(ContractAddress, abiContract).connect(singer!)
             const tx = await contract.attest({
                 schemaId,
                 expirationDate,
