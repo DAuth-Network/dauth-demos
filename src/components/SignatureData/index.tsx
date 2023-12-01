@@ -98,7 +98,7 @@ const SignatureData: FC<ISignatureData> = () => {
             */
            
 
-            const attestationData = ethers.solidityPacked(
+            const attestationData = utils.defaultAbiCoder.encode(
                 ["bytes32", "bytes32"],
                 [GOOGLE, accountHash]
               );
