@@ -11,6 +11,8 @@ import {ContractAddress, testContractAddress} from "@/services/contracts/zkConta
 import {Contract, ethers, utils, Wallet} from "ethers";
 import {useEthersSigner} from "@/services/ethers.signer";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ISignatureData {
     data: any
@@ -119,8 +121,9 @@ const SignatureData: FC<ISignatureData> = () => {
                 subject
             }, [signature])
             await tx.wait()
-            alert("Success")
+            toast.success('Attestation registered successfully!');
         } catch (e) {
+            toast.error("Error: Parameter Error or Duplicate Registration.")
             console.log(e)
         }
 
@@ -172,7 +175,16 @@ const SignatureData: FC<ISignatureData> = () => {
                     </>
                 }
             </div>
-
+            <ToastContainer  position="bottom-right"
+                             autoClose={3000}
+                             hideProgressBar={false}
+                             newestOnTop={false}
+                             closeOnClick
+                             rtl={false}
+                             pauseOnFocusLoss
+                             draggable
+                             pauseOnHover
+                             theme="light"/>
 
         </div>
     )
