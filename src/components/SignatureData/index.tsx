@@ -16,6 +16,9 @@ interface ISignatureData {
     data: any
 }
 
+const GOOGLE = utils.keccak256(utils.toUtf8Bytes("google"));
+const GITHUB = utils.keccak256(utils.toUtf8Bytes("github"));
+
 const firaCode = Fira_Code({subsets: ['latin']})
 const abiContract = [{
     inputs: [
@@ -79,31 +82,41 @@ const SignatureData: FC<ISignatureData> = () => {
     const onSubmit = async () => {
         try {
             const proof = verifyedData.data;
-            const schemaId = "0x44a18728bda7ce4b5891c75a6e6d316f8d9020453bdf55754e63c1d3a85acee9";
+            const schemaId = "0x912214269b9b891a0d7451974030ba13207d3bf78e515351609de9dd8a339686";
             const expirationDate = '0'
             let {auth, signature} = proof
+
             signature = '0x' + signature
             const {acc_and_type_hash, request_id, account_plain} = auth
-            const subject = request_id
+            const subject = '0x' + request_id
+            const accountHash = utils.keccak256(utils.toUtf8Bytes(account_plain));
+            
+            /*
             const attestationData = utils.defaultAbiCoder.encode([
-                'string', 'string'
+                'bytes32', 'bytes32'
             ], ['google', account_plain])
-            const hexSub = utils.hexlify(utils.toUtf8Bytes(subject))
+            */
+           
+
+            const attestationData = ethers.solidityPacked(
+                ["bytes32", "bytes32"],
+                [GOOGLE, accountHash]
+              );
 
             const attestationPayload = utils.defaultAbiCoder.encode(
                 ["tuple(bytes32, uint64, bytes, bytes)"], [[
-                    schemaId, expirationDate, hexSub, attestationData
+                    schemaId, expirationDate, subject, attestationData
                 ]]
             )
             const sig = utils.defaultAbiCoder.encode(
                 ["bytes[]"], [[signature]]
             )
-            const contract = new Contract(ContractAddress, abiContract).connect(singer!)
+            const contract = new Contract(testContractAddress, abiContract).connect(singer!)
             const tx = await contract.attest({
                 schemaId,
                 expirationDate,
                 attestationData,
-                subject: hexSub
+                subject
             }, [signature])
             await tx.wait()
             alert("Success")
