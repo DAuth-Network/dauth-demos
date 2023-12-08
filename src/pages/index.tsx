@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
-      <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 px-8 relative lg:overflow-auto flex flex-col'>
+      <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 lg:pb-0 px-8 relative lg:overflow-auto flex flex-col'>
         <div className={'flex-1'}>
           <div className='lg:absolute top-0 w-full'>
             <Header className='px-0'></Header>
