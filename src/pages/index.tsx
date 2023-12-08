@@ -6,9 +6,10 @@ import { dauth_getUserInfo } from '@/services/http';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import React, {useEffect, useMemo} from 'react';
 import MediaList from "../components/MediaList";
 import Footer from "@/components/Footer";
+import {RiAlarmWarningFill } from "react-icons/ri";
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 
 export default function Home() {
@@ -25,8 +26,14 @@ export default function Home() {
   }, [profileData])
 
 
+
   return (
     <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+      <div className={'absolute p-2 w-full text-center text-xl bg-[#e11d48] flex justify-center items-center'}>
+        <RiAlarmWarningFill color={"#fde047"}  size={28}/>
+
+        <div className={'mx-2'}>ZK circuit upgrade in progress. Please try after 6:00 AM on December 9, 2023.</div>
+      </div>
       <div className='lg:w-1/2  lg:h-screen h-3/5 lg:p-20 lg:pb-0 px-8 relative lg:overflow-auto flex flex-col'>
         <div className={'flex-1'}>
           <div className='lg:absolute top-0 w-full'>

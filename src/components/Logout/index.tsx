@@ -11,6 +11,9 @@ const Logout = () => {
     }
     return (
         <div className='flex-1 flex justify-between items-center'>
+            <div>
+
+            </div>
             <div></div>
             <ConnectButton />
 

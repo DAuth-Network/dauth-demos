@@ -11,7 +11,6 @@ const Layout: FC<ILayout> = ({ children }) => {
         <>
 
             <div className='dark text-white'>
-
                 <main>{children}</main>
             </div></>
     )
