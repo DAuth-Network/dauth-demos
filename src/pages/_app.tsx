@@ -18,9 +18,8 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'openid3',
-  projectId: 'openid3',
-
+  appName: 'Openid3',
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
   chains
 });
 
