@@ -9,6 +9,8 @@ import { updateActivedItem } from "@/store/verifiedSlice"
 import { TbRefresh } from "react-icons/tb"
 import { githubLogin } from "@/services/http/oauth"
 import OauthButton from "../OAuth/OauthButton"
+import {useAccount} from "wagmi";
+import {ConnectButton} from "@rainbow-me/rainbowkit";
 
 interface IVerifiedItem {
     item: IMediaItem,
@@ -16,6 +18,7 @@ interface IVerifiedItem {
     profile: IProfileItem[],
 }
 const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
+    const {isConnected} = useAccount()
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
     const dispatch = useDispatch()
     const ready = ['email', 'google'].includes(item.name)
@@ -71,7 +74,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                 </div>
 
             </> :
-             <OauthButton item={item} ready={ready} />
+                isConnected ? <OauthButton item={item} ready={ready} /> : <ConnectButton/>
         }
 
     </div >
