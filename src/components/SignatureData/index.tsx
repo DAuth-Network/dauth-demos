@@ -62,11 +62,83 @@ const abiContract = [{
     stateMutability: "payable",
     type: "function",
 }]
+const readABI = [{
+    "inputs": [{"internalType": "address", "name": "_signer", "type": "address"}],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+}, {"inputs": [], "name": "AlreadyAttested", "type": "error"}, {
+    "inputs": [],
+    "name": "InvalidSchemaId",
+    "type": "error"
+}, {"inputs": [], "name": "InvalidSignature", "type": "error"}, {
+    "inputs": [],
+    "name": "OnlyPortalOwner",
+    "type": "error"
+}, {"inputs": [], "name": "UnsupportedProvider", "type": "error"}, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "accAndTypeHash",
+        "type": "bytes32"
+    }, {"indexed": false, "internalType": "bytes", "name": "subject", "type": "bytes"}],
+    "name": "Attested",
+    "type": "event"
+}, {
+    "inputs": [],
+    "name": "GOOGLE_PROVIDER",
+    "outputs": [{"internalType": "bytes32", "name": "", "type": "bytes32"}],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "SCHEMA_ID",
+    "outputs": [{"internalType": "bytes32", "name": "", "type": "bytes32"}],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{
+        "components": [{
+            "internalType": "bytes32",
+            "name": "schemaId",
+            "type": "bytes32"
+        }, {"internalType": "uint64", "name": "expirationDate", "type": "uint64"}, {
+            "internalType": "bytes",
+            "name": "subject",
+            "type": "bytes"
+        }, {"internalType": "bytes", "name": "attestationData", "type": "bytes"}],
+        "internalType": "struct AttestationPayload",
+        "name": "attestationPayload",
+        "type": "tuple"
+    }, {"internalType": "bytes", "name": "validationPayload", "type": "bytes"}, {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+    }, {"internalType": "uint256", "name": "", "type": "uint256"}],
+    "name": "run",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}, {
+    "inputs": [],
+    "name": "signer",
+    "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+    "stateMutability": "view",
+    "type": "function"
+}, {
+    "inputs": [{"internalType": "bytes4", "name": "interfaceID", "type": "bytes4"}],
+    "name": "supportsInterface",
+    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+    "stateMutability": "pure",
+    "type": "function"
+}]
 const SignatureData: FC<ISignatureData> = () => {
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
+    const [isSubmited, setIsSubmited] = useState(false)
     const verifyedData = useSelector((state: RootState) => state.verifiedData.verifyedData)
+
     const [showAll, setShowAll] = useState(false)
-    const singer = useEthersSigner()
+    const signer = useEthersSigner()
     const {isConnected} = useAccount()
 
     const onClick = () => {
@@ -80,6 +152,11 @@ const SignatureData: FC<ISignatureData> = () => {
     const {isLoading, isSuccess} = useWaitForTransaction({
         hash: data?.hash,
     })
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            searchAttestation()
+        }
+    }, [verifyedData])
 
     const onSubmit = async () => {
         try {
@@ -92,18 +169,17 @@ const SignatureData: FC<ISignatureData> = () => {
             const {acc_and_type_hash, request_id, account_plain} = auth
             const subject = '0x' + request_id
             const accountHash = utils.keccak256(utils.toUtf8Bytes(account_plain));
-            
             /*
             const attestationData = utils.defaultAbiCoder.encode([
-                'bytes32', 'bytes32'
+            'bytes32', 'bytes32'
             ], ['google', account_plain])
             */
-           
+
 
             const attestationData = utils.defaultAbiCoder.encode(
                 ["bytes32", "bytes32"],
                 [GOOGLE, accountHash]
-              );
+            );
 
             const attestationPayload = utils.defaultAbiCoder.encode(
                 ["tuple(bytes32, uint64, bytes, bytes)"], [[
@@ -113,7 +189,7 @@ const SignatureData: FC<ISignatureData> = () => {
             const sig = utils.defaultAbiCoder.encode(
                 ["bytes[]"], [[signature]]
             )
-            const contract = new Contract(ContractAddress, abiContract).connect(singer!)
+            const contract = new Contract(ContractAddress, abiContract).connect(signer!)
             const tx = await contract.attest({
                 schemaId,
                 expirationDate,
@@ -128,6 +204,46 @@ const SignatureData: FC<ISignatureData> = () => {
         }
 
     }
+
+    const searchAttestation = async () => {
+        try {
+            const proof = verifyedData.data;
+            let {auth, signature} = proof
+
+            signature = '0x' + signature
+            const {acc_and_type_hash, request_id, account_plain} = auth
+            const subject = '0x' + request_id
+            const accountHash = utils.keccak256(utils.toUtf8Bytes(account_plain));
+
+            const attestationData = utils.defaultAbiCoder.encode(
+                ["bytes32", "bytes32"],
+                [GOOGLE, accountHash]
+            );
+
+            const topic =
+                "0x1c978da31d5a734f3dd3b88a7801d344b522301e6d07006e51520330e6c0795d";
+            const logs = await signer?.provider.getLogs({
+                fromBlock: 1036373,
+                toBlock: "latest",
+                address: "0x401c196454c5541c6c63713f14db2967fcc0b38a",
+                topics: [topic, utils.keccak256(attestationData)],
+            });
+            if (!logs || logs.length == 0) {
+                console.log("no log found");
+                return;
+            }
+            const iface = new utils.Interface(readABI)
+            const event = iface.parseLog({
+                topics: Array.from(logs[0].topics),
+                data: logs[0].data,
+            });
+            setIsSubmited(true)
+            return true
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
     return (
         <div className='flex flex-col-reverse lg:flex-col justify-between h-full'>
             <div
@@ -140,8 +256,7 @@ const SignatureData: FC<ISignatureData> = () => {
                     <button className={`mr-2 w-6 h-6 rounded-full px-1`} onClick={onClick}>
                         {
                             !showAll ?
-                                <MdHistory color={'#9352FF'} className={`${!showAll ? 'visible' : 'hidden'}`}
-                                           size={18}/>
+                                <MdHistory color={'#9352FF'} className={`${!showAll ? 'visible' : 'hidden'}`} size={18}/>
                                 : <div className='w-5 h-5 bg-white rounded-full'>
                                 </div>
                         }
@@ -167,24 +282,28 @@ const SignatureData: FC<ISignatureData> = () => {
                     verifyedData && <>
                         {
                             isConnected ?
-                                <button className={`mr-2 w-32 h-12 rounded-full  bg-[#592b71]`} onClick={onSubmit}>
-                                    Submit
-                                </button>
+                                !isSubmited ?
+                                    <button className={`mr-2 h-12 rounded-full  bg-[#592b71] px-4`} onClick={onSubmit}>
+                                        Submit
+                                    </button> :
+                                    <button className={`mr-2 h-12 rounded-full  bg-gray-500 px-4 cursor-not-allowed`} disabled onClick={onSubmit}>
+                                        Already registered
+                                    </button>
                                 : <ConnectButton/>
                         }
                     </>
                 }
             </div>
-            <ToastContainer  position="bottom-right"
-                             autoClose={3000}
-                             hideProgressBar={false}
-                             newestOnTop={false}
-                             closeOnClick
-                             rtl={false}
-                             pauseOnFocusLoss
-                             draggable
-                             pauseOnHover
-                             theme="light"/>
+            <ToastContainer position="bottom-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"/>
 
         </div>
     )
