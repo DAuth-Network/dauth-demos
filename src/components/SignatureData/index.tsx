@@ -230,6 +230,7 @@ const SignatureData: FC<ISignatureData> = () => {
             });
             if (!logs || logs.length == 0) {
                 console.log("no log found");
+                setIsSubmited(false)
                 return;
             }
             const iface = new utils.Interface(readABI)
@@ -238,6 +239,7 @@ const SignatureData: FC<ISignatureData> = () => {
                 data: logs[0].data,
             });
             setIsSubmited(true)
+            toast.warning('Attestation has been registered!')
             return true
 
         } catch (e) {
