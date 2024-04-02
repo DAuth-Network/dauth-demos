@@ -6,16 +6,20 @@ import { dauth_getUserInfo } from '@/services/http';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRequest } from 'ahooks';
 import { useRouter } from 'next/router';
-import React, {useEffect, useMemo} from 'react';
+import React, {use, useEffect, useMemo} from 'react';
 import MediaList from "../components/MediaList";
 import Footer from "@/components/Footer";
+import { gapi} from 'gapi-script';
 import {RiAlarmWarningFill } from "react-icons/ri";
 import {useConnectModal} from "@rainbow-me/rainbowkit";
 const clientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
+console.log(clientID);
+
+
+
 
 export default function Home() {
   const { data: profile, mutate } = useRequest(dauth_getUserInfo, {});
-
 
   const profileData = useMemo(() => {
     if (profile && profile.data) {
@@ -31,7 +35,7 @@ export default function Home() {
 
 
   return (
-    <GoogleOAuthProvider clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
+    <GoogleOAuthProvider  clientId={clientID}><div className='flex  lg:flex-row flex-col  h-screen bg-[#141414]'>
       {/*<div className={'absolute p-2 w-full text-center text-xl bg-[#e11d48] flex justify-center items-center'}>*/}
       {/*  <RiAlarmWarningFill color={"#fde047"}  size={28}/>*/}
 
@@ -41,6 +45,7 @@ export default function Home() {
         <div className={'flex-1'}>
           <div className='lg:absolute top-0 w-full'>
             <Header className='px-0'></Header>
+            
           </div>
           <div className='flex flex-row lg:justify-around lg:my-10 my-4 '>
             <div className='lg:w-28 lg:h-28 w-16 h-16 flex-none bg-[#2b2b2b] rounded-full mr-10'>
@@ -53,16 +58,19 @@ export default function Home() {
               </div>
               <div>
                 <MediaList verifiedList={verifiedList} />
+                
               </div>
             </div>
           </div>
-          <VerifiedList verifiedList={verifiedList} profile={profile ? profile.data : []} />
+          <VerifiedList verifiedList={verifiedList} clientId={clientID} profile={profile ? profile.data : []} />
+          
         </div>
         <Footer/>
       </div>
       <div className='lg:w-1/2  lg:h-screen h-2/5 w-full  bg-[#141414]  bg-liner lg:p-20 px-8 lg:px-0'>
 
         <div className=' mx-auto lg:w-4/5 h-full lg:h-auto' >
+          
           <SignatureData data={profileData} />
         </div>
       </div>

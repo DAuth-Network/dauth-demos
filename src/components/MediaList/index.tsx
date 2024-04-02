@@ -15,6 +15,7 @@ const MediaItem: FC<IMediaItem> = ({ name, icon, active }) => {
     {
       icon({ size: 16, color: `${active ? '#fff' : '#1f1f1f'}` })
     }
+    <div></div>
   </div>
 }
 interface IMediaList {
