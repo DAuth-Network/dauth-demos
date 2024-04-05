@@ -16,8 +16,9 @@ interface IVerifiedItem {
     item: IMediaItem,
     verified: boolean,
     profile: IProfileItem[],
+    disabled: boolean
 }
-const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
+const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile, disabled = true }) => {
     const {isConnected} = useAccount()
     const activedItem = useSelector((state: RootState) => state.verifiedData.activedItem)
     const dispatch = useDispatch()
@@ -33,7 +34,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
         console.log(res)
     }
     const isActive = activedItem === item.name
-    return <div className={`w-full lg:border-2 border border-[#383838] flex flex-col p-6 rounded-lg bg-[#1f1f1f] mt-4  lg:mt-8 ${isActive ? 'bg-[#2b2b2b]' : 'bg-[#1f1f1f]'} ${!ready ? ' cursor-not-allowed' : ''}`} onClick={onClick}>
+    return <div className={`w-full lg:border-2 border border-[#383838] flex flex-col p-6 rounded-lg bg-[#1f1f1f] mt-4  lg:mt-8 ${isActive ? 'bg-[#2b2b2b]' : 'bg-[#1f1f1f]'} ${(!ready || disabled )? ' cursor-not-allowed' : ''}`} onClick={onClick}>
         <div className='flex flex-row  items-center lg:mb-6 mb-2'>
             <div className='mr-4'>
                 <div className='p-1 rounded-full bg-white'>{
@@ -51,7 +52,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                     </div>
                     {
                         item.name !== 'email' && < div className="w-2 cursor-pointer" >
-                            <OauthButton item={item} ready={ready} isRefresh />
+                            <OauthButton item={item} ready={ready } isRefresh />
                         </div>
                     }
                 </div>
@@ -74,7 +75,7 @@ const VerifiedItem: FC<IVerifiedItem> = ({ item, verified, profile }) => {
                 </div>
 
             </> :
-                isConnected ? <OauthButton item={item} ready={ready} /> : <ConnectButton/>
+                isConnected ? <OauthButton item={item} ready={false} /> : <ConnectButton/>
         }
 
     </div >
